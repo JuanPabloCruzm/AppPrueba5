@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menú Principal</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    button {
+      margin: 15px 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 15px;
+      border: none;
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #333;
+    }
+    .resultado {
+      margin-bottom: 30px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hola, <span id="nombreUser"></span></h1>
+  <div class="resultado" id="resultadoImc"></div>
+  <button onclick="location.href='alimentacion.html'">Plan de Alimentación</button>
+  <button onclick="location.href='entrenamiento.html'">Plan de Entrenamiento</button>
+  <button onclick="location.href='deporte.html'">Cambiar Deporte/Disciplina</button>
 
+  <script>
+    const nombre = localStorage.getItem("nombre");
+    const imc = parseFloat(localStorage.getItem("imc"));
+    const peso = localStorage.getItem("peso");
+    const estatura = localStorage.getItem("estatura");
+
+    document.getElementById("nombreUser").textContent = nombre || "Usuario";
+
+    function mensajeImc(imc) {
+      if (imc < 18.5) return "Bajo peso: Te recomendamos aumentar tu ingesta calórica con alimentos nutritivos.";
+      if (imc < 25) return "Peso normal: Mantén tu estilo de vida saludable.";
+      return "Sobrepeso: Es recomendable controlar tu alimentación y realizar actividad física regularmente.";
+    }
+
+    document.getElementById("resultadoImc").textContent = `Tu IMC es ${imc.toFixed(2)} (${mensajeImc(imc)})`;
+  </script>
+</body>
+</html>
