@@ -49,11 +49,19 @@
   <button onclick="volver()">← Volver al menú</button>
 
   <script>
-    const imc = localStorage.getItem("imc");
+    const imcRaw = localStorage.getItem("imc");
+    const imc = imcRaw ? parseFloat(imcRaw) : 0;
     const tipo = localStorage.getItem("tipoCuerpo");
     const deporte = localStorage.getItem("deporte");
 
-    const plan = {
+    // Clasifica el IMC en bajo, normal, sobrepeso
+    function categoriaIMC(imc) {
+      if(imc < 18.5) return "bajo";
+      if(imc < 25) return "normal";
+      return "sobrepeso";
+    }
+
+    const planComidas = {
       mtb: {
         bajo: {
           ectomorfo: [
@@ -62,4 +70,11 @@
             { desayuno: "Smoothie de mango, yogur natural y semillas", almuerzo: "Fideos con salsa boloñesa de pavo", cena: "Omelette de espinaca y tomate con arroz" },
             { desayuno: "Pan con mantequilla de maní, fruta", almuerzo: "Lentejas guisadas con arroz y ensalada", cena: "Pizza casera integral con vegetales y queso" },
             { desayuno: "Batido con plátano, avena, cacao y maní", almuerzo: "Couscous con pollo al curry y verduras", cena: "Tortilla de papa y ensalada verde" },
-            { desayuno: "Pan integral con queso fresco y tomate", almuerzo: "Pastel
+            { desayuno: "Pan integral con queso fresco y tomate", almuerzo: "Pastel de choclo con ensalada", cena: "Crema de verduras y galletas de avena" },
+            { desayuno: "Huevos revueltos con pan integral y tomate", almuerzo: "Pechuga de pollo a la plancha con arroz integral", cena: "Ensalada de quinoa y verduras" }
+          ],
+          mesomorfo: [
+            { desayuno: "Avena con fruta y nueces", almuerzo: "Arroz integral con pollo y verduras", cena: "Omelette de espinacas" },
+            { desayuno: "Yogur natural con granola y frutos secos", almuerzo: "Lentejas con ensalada", cena: "Sopa de verduras con pan integral" },
+            { desayuno: "Smoothie de plátano y proteína", almuerzo: "Pasta con salsa de tomate y carne magra", cena: "Tostadas con palta y huevo" },
+            { desayuno: "Pan integral con queso y tomate", almuerzo: "Quinoa con garbanzos y pollo", cena: "Ensalada de
