@@ -57,4 +57,52 @@
           "mesomorfo": [
             { desayuno: "Avena con plátano y nueces", almuerzo: "Pollo al horno con quinoa y ensalada", cena: "Tortilla de espinacas y pan integral" },
             { desayuno: "Yogur griego con granola", almuerzo: "Pastas con atún y tomate", cena: "Puré de zapallo con huevo" },
-            { desayuno: "Smoothie de frutos rojos y proteína", almuerzo: "Bowl de arroz, pollo y pal
+            { desayuno: "Smoothie de frutos rojos y proteína", almuerzo: "Bowl de arroz, pollo y palta", cena: "Tostadas integrales con palta y huevo" },
+            { desayuno: "Pan integral con palta y tomate", almuerzo: "Lentejas guisadas", cena: "Sopa de verduras con pan tostado" },
+            { desayuno: "Panqueques de avena con miel", almuerzo: "Ensalada de garbanzos con atún", cena: "Sándwich de pollo a la plancha" },
+            { desayuno: "Batido de plátano con avena", almuerzo: "Salmón con papas al vapor", cena: "Ensalada verde con huevo cocido" },
+            { desayuno: "Huevos revueltos con pan integral", almuerzo: "Pechuga de pavo con arroz integral", cena: "Crema de zapallo y galletas de avena" }
+          ],
+          "endomorfo": [...],  // Agregaremos los demás casos enseguida
+          "ectomorfo": [...]
+        },
+        "atletismo": {
+          "mesomorfo": [
+            { desayuno: "Tostadas integrales con palta", almuerzo: "Pechuga de pollo con arroz y brócoli", cena: "Omelette de verduras" },
+            ...
+          ],
+          ...
+        }
+        // Agregar: gimnasio, yoga, natación, sedentario
+      },
+      "bajo": {
+        ...
+      },
+      "sobrepeso": {
+        ...
+      }
+    };
+
+    function mostrarPlan() {
+      const dias = comidas?.[imc]?.[deporte]?.[cuerpo] || [];
+      const contenedor = document.getElementById("plan");
+      dias.forEach((dia, i) => {
+        contenedor.innerHTML += `
+          <div class="dia">
+            <h2>Día ${i + 1}</h2>
+            <div class="comida"><strong>Desayuno:</strong> ${dia.desayuno}</div>
+            <div class="comida"><strong>Almuerzo:</strong> ${dia.almuerzo}</div>
+            <div class="comida"><strong>Cena:</strong> ${dia.cena}</div>
+          </div>
+        `;
+      });
+    }
+
+    function volver() {
+      window.location.href = "menu.html";
+    }
+
+    mostrarPlan();
+  </script>
+</body>
+</html>
