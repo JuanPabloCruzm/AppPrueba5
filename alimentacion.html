@@ -2,134 +2,59 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <title>Plan de Alimentación</title>
-  <link rel="icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background-color: #121212;
       color: #eee;
       font-family: Arial, sans-serif;
       padding: 20px;
+      max-width: 800px;
+      margin: auto;
     }
     h1, h2 {
-      text-align: center;
+      color: #fff;
     }
     .dia {
-      margin-bottom: 20px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 10px;
+      margin-bottom: 25px;
+      padding: 15px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
     }
     .comida {
-      margin-left: 15px;
+      margin: 5px 0;
     }
     button {
-      background-color: #1f1f1f;
-      color: #fff;
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
       margin-top: 20px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2c2c2c;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #444;
     }
   </style>
 </head>
 <body>
-  <h1>Plan Semanal de Alimentación</h1>
+  <h1>Plan de Alimentación Semanal</h1>
   <div id="plan"></div>
-  <button onclick="volver()">← Volver al menú</button>
+  <button onclick="volver()">← Volver al Menú</button>
 
   <script>
     const imc = localStorage.getItem("imc");
-    const tipo = localStorage.getItem("tipoCuerpo");
+    const cuerpo = localStorage.getItem("tipoCuerpo");
     const deporte = localStorage.getItem("deporte");
 
-    const plan = {
-      "MTB": {
-        "bajo": {
-          "ectomorfo": [
-            ["Pan integral con palta y huevo", "Pasta con carne magra", "Arroz con legumbres"],
-            ["Avena con banana", "Lentejas + ensalada", "Pollo con puré"],
-            ["Batido de leche, avena y frutos secos", "Arroz con atún", "Tortilla + ensalada"]
-          ],
+    const comidas = {
+      "normal": {
+        "MTB": {
           "mesomorfo": [
-            ["Yogur con cereales", "Arroz con pavo", "Sopaipillas caseras con pebre"],
-            ["Huevos revueltos + pan", "Fideos con salsa de carne", "Ensalada con pollo"],
-            ["Avena + frutos secos", "Puré con carne", "Wrap de verduras"]
-          ],
-          "endomorfo": [
-            ["Smoothie de frutas", "Arroz integral + vegetales", "Sopa de pollo"],
-            ["Pan de centeno + huevo", "Carne al horno", "Verduras al vapor"],
-            ["Granola con yogur", "Tortilla de espinaca", "Crema de zapallo"]
-          ]
-        },
-        "normal": {
-          "ectomorfo": [
-            ["Avena con frutas", "Pollo a la plancha + arroz", "Tortilla con verduras"],
-            ["Pan integral con palta", "Fideos con atún", "Sopa casera con pan"],
-            ["Huevos cocidos + batido", "Arroz con pollo", "Verduras + huevo"]
-          ],
-          "mesomorfo": [
-            ["Pan con queso", "Quinoa con verduras", "Empanadas caseras"],
-            ["Batido de frutas", "Carne molida con arroz", "Tallarines con salsa"],
-            ["Cereal con leche", "Ensalada mixta", "Pizza casera con vegetales"]
-          ],
-          "endomorfo": [
-            ["Yogur con avena", "Pechuga de pollo + arroz", "Sopa de verduras"],
-            ["Pan pita con hummus", "Tortilla de acelga", "Filete de pescado + ensalada"],
-            ["Tostadas integrales", "Bowl de lentejas", "Puré + carne blanca"]
-          ]
-        },
-        "sobrepeso": {
-          "ectomorfo": [
-            ["Smoothie verde", "Lentejas", "Sopa de pollo"],
-            ["Tostadas con palta", "Puré con verduras", "Ensalada con huevo"],
-            ["Avena + yogur", "Sopa de carne", "Verduras asadas"]
-          ],
-          "mesomorfo": [
-            ["Huevos cocidos", "Ensalada con atún", "Tortilla con verduras"],
-            ["Pan integral", "Pollo al horno", "Sopa vegetal"],
-            ["Batido natural", "Arroz integral", "Verduras + pescado"]
-          ],
-          "endomorfo": [
-            ["Café + fruta", "Sopa detox", "Verduras hervidas"],
-            ["Té verde + galletas integrales", "Legumbres con verduras", "Pescado al vapor"],
-            ["Smoothie light", "Ensalada completa", "Crema de zapallo"]
-          ]
-        }
-      }
-      // Aquí irán los planes de Atletismo, Natación, Yoga, Gimnasio, Sedentario...
-    };
-
-    function generarPlan() {
-      const contenedor = document.getElementById("plan");
-      const categoria = imc < 18.5 ? "bajo" : imc < 25 ? "normal" : "sobrepeso";
-      const comidas = plan[deporte]?.[categoria]?.[tipo];
-
-      if (!comidas) {
-        contenedor.innerHTML = "<p>No hay plan disponible aún para esta combinación.</p>";
-        return;
-      }
-
-      for (let i = 0; i < comidas.length; i++) {
-        const dia = document.createElement("div");
-        dia.className = "dia";
-        dia.innerHTML = `<h2>Día ${i + 1}</h2>
-        <p><strong>Desayuno:</strong> <span class="comida">${comidas[i][0]}</span></p>
-        <p><strong>Almuerzo:</strong> <span class="comida">${comidas[i][1]}</span></p>
-        <p><strong>Cena:</strong> <span class="comida">${comidas[i][2]}</span></p>`;
-        contenedor.appendChild(dia);
-      }
-    }
-
-    function volver() {
-      window.location.href = "menu.html";
-    }
-
-    generarPlan();
-  </script>
-</body>
-</html>
+            { desayuno: "Avena con plátano y nueces", almuerzo: "Pollo al horno con quinoa y ensalada", cena: "Tortilla de espinacas y pan integral" },
+            { desayuno: "Yogur griego con granola", almuerzo: "Pastas con atún y tomate", cena: "Puré de zapallo con huevo" },
+            { desayuno: "Smoothie de frutos rojos y proteína", almuerzo: "Bowl de arroz, pollo y pal
