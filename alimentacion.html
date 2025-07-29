@@ -2,38 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
   <title>Plan de Alimentación</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       background-color: #121212;
       color: #eee;
       font-family: Arial, sans-serif;
       padding: 20px;
-      max-width: 800px;
+      max-width: 700px;
       margin: auto;
     }
     h1, h2 {
-      color: #fff;
+      text-align: center;
+      color: white;
     }
     .dia {
-      margin-bottom: 25px;
-      padding: 15px;
       background-color: #1e1e1e;
-      border-radius: 12px;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
     }
     .comida {
       margin: 5px 0;
     }
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
+      display: block;
+      margin: 25px auto 0;
+      padding: 10px 25px;
       font-size: 16px;
-      background-color: #2c2c2c;
-      color: #fff;
+      border-radius: 12px;
       border: none;
-      border-radius: 8px;
+      background-color: #222;
+      color: #eee;
       cursor: pointer;
     }
     button:hover {
@@ -42,51 +44,22 @@
   </style>
 </head>
 <body>
-  <h1>Plan de Alimentación Semanal</h1>
+  <h1>Plan Semanal de Alimentación</h1>
   <div id="plan"></div>
-  <button onclick="volver()">← Volver al Menú</button>
+  <button onclick="volver()">← Volver al menú</button>
 
   <script>
     const imc = localStorage.getItem("imc");
-    const cuerpo = localStorage.getItem("tipoCuerpo");
+    const tipo = localStorage.getItem("tipoCuerpo");
     const deporte = localStorage.getItem("deporte");
 
-    const comidas = {
-      "normal": {
-        "MTB": {
-          "mesomorfo": [
-            { desayuno: "Avena con plátano y nueces", almuerzo: "Pollo al horno con quinoa y ensalada", cena: "Tortilla de espinacas y pan integral" },
-            { desayuno: "Yogur griego con granola", almuerzo: "Pastas con atún y tomate", cena: "Puré de zapallo con huevo" },
-            { desayuno: "Smoothie de frutos rojos y proteína", almuerzo: "Bowl de arroz, pollo y palta", cena: "Tostadas integrales con palta y huevo" },
-            { desayuno: "Pan integral con palta y tomate", almuerzo: "Lentejas guisadas", cena: "Sopa de verduras con pan tostado" },
-            { desayuno: "Panqueques de avena con miel", almuerzo: "Ensalada de garbanzos con atún", cena: "Sándwich de pollo a la plancha" },
-            { desayuno: "Batido de plátano con avena", almuerzo: "Salmón con papas al vapor", cena: "Ensalada verde con huevo cocido" },
-            { desayuno: "Huevos revueltos con pan integral", almuerzo: "Pechuga de pavo con arroz integral", cena: "Crema de zapallo y galletas de avena" }
-          ]
-        }
-      }
-    };
-
-    function mostrarPlan() {
-      const dias = comidas?.[imc]?.[deporte]?.[cuerpo] || [];
-      const contenedor = document.getElementById("plan");
-      dias.forEach((dia, i) => {
-        contenedor.innerHTML += `
-          <div class="dia">
-            <h2>Día ${i + 1}</h2>
-            <div class="comida"><strong>Desayuno:</strong> ${dia.desayuno}</div>
-            <div class="comida"><strong>Almuerzo:</strong> ${dia.almuerzo}</div>
-            <div class="comida"><strong>Cena:</strong> ${dia.cena}</div>
-          </div>
-        `;
-      });
-    }
-
-    function volver() {
-      window.location.href = "menu.html";
-    }
-
-    mostrarPlan();
-  </script>
-</body>
-</html>
+    const plan = {
+      mtb: {
+        bajo: {
+          ectomorfo: [
+            { desayuno: "Avena con leche, plátano, miel y nueces", almuerzo: "Pasta integral con atún, espinaca y aceite de oliva", cena: "Arroz con pollo y palta" },
+            { desayuno: "Pan integral con palta, huevo revuelto, jugo natural", almuerzo: "Quinoa, garbanzos, zanahoria, pechuga de pollo", cena: "Hamburguesa de lentejas con camote al horno" },
+            { desayuno: "Smoothie de mango, yogur natural y semillas", almuerzo: "Fideos con salsa boloñesa de pavo", cena: "Omelette de espinaca y tomate con arroz" },
+            { desayuno: "Pan con mantequilla de maní, fruta", almuerzo: "Lentejas guisadas con arroz y ensalada", cena: "Pizza casera integral con vegetales y queso" },
+            { desayuno: "Batido con plátano, avena, cacao y maní", almuerzo: "Couscous con pollo al curry y verduras", cena: "Tortilla de papa y ensalada verde" },
+            { desayuno: "Pan integral con queso fresco y tomate", almuerzo: "Pastel
