@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Datos Físicos - MiFitApp</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0; padding: 20px;
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+    .resultado {
+      margin-top: 15px;
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Datos Físicos</h1>
+  <input type="number" id="edad" placeholder="Edad (años)" min="5" max="120" />
+  <input type="number" id="peso" placeholder="Peso (kg)" min="20" max="300" step="0.1" />
+  <input type="number" id="estatura" placeholder="Estatura (cm)" min="50" max="250" />
+  <select id="tipoCuerpo">
+    <option value="ectomorfo">Ectomorfo</option>
+    <option value="mesomorfo">Mesomorfo</option>
+    <option value="endomorfo">Endomorfo</option>
+  </select>
+  <button onclick="calcularIMC()">Calcular IMC y Continuar</button>
+  <div class="resultado" id="resultadoIMC"></div>
 
+  <script>
+    function calcularIMC() {
+      const edad = Number(document.getElementById("edad").value);
+      const peso = Number(document.getElementById("peso").value);
+      const estaturaCm = Number(document.getElementById("estatura").value);
+      const tipo = document.getElementById("tipoCuerpo").value;
+      if (!edad || !peso || !estaturaCm) {
+        alert("Completa todos los campos correctamente.");
+        return;
+      }
+      const estaturaM = estaturaCm / 100;
+      const imc = peso / (estaturaM * estaturaM);
+      localStorage.setItem("edad", edad);
+      localStorage.setItem("peso", peso);
+      localStorage.setItem("estatura", estaturaCm);
+      localStorage.setItem("tipoCuerpo", tipo);
+      localStorage.setItem("imc", imc.toFixed(2));
+      window.location.href = "deporte.html";
+    }
+  </script>
+</body>
+</html>
