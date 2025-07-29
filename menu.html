@@ -37,6 +37,9 @@
 <body>
   <h1>Hola, <span id="nombreUser"></span></h1>
   <div class="resultado" id="resultadoImc"></div>
+  <div><strong>Deporte:</strong> <span id="deporteUser"></span></div>
+  <div><strong>Disciplina:</strong> <span id="disciplinaUser"></span></div>
+
   <button onclick="location.href='alimentacion.html'">Plan de Alimentación</button>
   <button onclick="location.href='entrenamiento.html'">Plan de Entrenamiento</button>
   <button onclick="location.href='deporte.html'">Cambiar Deporte/Disciplina</button>
@@ -44,10 +47,11 @@
   <script>
     const nombre = localStorage.getItem("nombre");
     const imc = parseFloat(localStorage.getItem("imc"));
-    const peso = localStorage.getItem("peso");
-    const estatura = localStorage.getItem("estatura");
-
+    const deporte = localStorage.getItem("deporte");
+    const disciplina = localStorage.getItem("disciplina");
     document.getElementById("nombreUser").textContent = nombre || "Usuario";
+    document.getElementById("deporteUser").textContent = deporte ? deporte.toUpperCase() : "No seleccionado";
+    document.getElementById("disciplinaUser").textContent = disciplina ? disciplina.charAt(0).toUpperCase() + disciplina.slice(1) : "No seleccionada";
 
     function mensajeImc(imc) {
       if (imc < 18.5) return "Bajo peso: Te recomendamos aumentar tu ingesta calórica con alimentos nutritivos.";
