@@ -2,79 +2,129 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Plan de Alimentación</title>
-  <link rel="icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     body {
       background-color: #121212;
-      color: #eee;
-      font-family: Arial, sans-serif;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
       padding: 20px;
-      max-width: 700px;
-      margin: auto;
     }
-    h1, h2 {
+    h1 {
       text-align: center;
-      color: white;
     }
     .dia {
-      background-color: #1e1e1e;
+      background: #1e1e1e;
       margin-bottom: 20px;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.6);
     }
     .comida {
-      margin: 5px 0;
+      margin: 8px 0;
     }
     button {
-      display: block;
-      margin: 25px auto 0;
-      padding: 10px 25px;
-      font-size: 16px;
-      border-radius: 12px;
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
       border: none;
-      background-color: #222;
-      color: #eee;
+      border-radius: 8px;
       cursor: pointer;
-    }
-    button:hover {
-      background-color: #444;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
   </style>
 </head>
 <body>
-  <h1>Plan Semanal de Alimentación</h1>
+  <h1>Plan de Alimentación Personalizado</h1>
   <div id="plan"></div>
-  <button onclick="volver()">← Volver al menú</button>
+  <button onclick="volver()">Volver</button>
 
   <script>
-    const imcRaw = localStorage.getItem("imc");
-    const imc = imcRaw ? parseFloat(imcRaw) : 0;
+    const imc = localStorage.getItem("imc");
     const tipo = localStorage.getItem("tipoCuerpo");
     const deporte = localStorage.getItem("deporte");
 
-    // Clasifica el IMC en bajo, normal, sobrepeso
     function categoriaIMC(imc) {
-      if(imc < 18.5) return "bajo";
-      if(imc < 25) return "normal";
-      return "sobrepeso";
+      const imcNum = parseFloat(imc);
+      if (imcNum < 18.5) return "bajo";
+      if (imcNum >= 18.5 && imcNum < 25) return "normal";
+      return "alto";
     }
 
     const planComidas = {
-      mtb: {
+      gimnasio: {
         bajo: {
           ectomorfo: [
-            { desayuno: "Avena con leche, plátano, miel y nueces", almuerzo: "Pasta integral con atún, espinaca y aceite de oliva", cena: "Arroz con pollo y palta" },
-            { desayuno: "Pan integral con palta, huevo revuelto, jugo natural", almuerzo: "Quinoa, garbanzos, zanahoria, pechuga de pollo", cena: "Hamburguesa de lentejas con camote al horno" },
-            { desayuno: "Smoothie de mango, yogur natural y semillas", almuerzo: "Fideos con salsa boloñesa de pavo", cena: "Omelette de espinaca y tomate con arroz" },
-            { desayuno: "Pan con mantequilla de maní, fruta", almuerzo: "Lentejas guisadas con arroz y ensalada", cena: "Pizza casera integral con vegetales y queso" },
-            { desayuno: "Batido con plátano, avena, cacao y maní", almuerzo: "Couscous con pollo al curry y verduras", cena: "Tortilla de papa y ensalada verde" },
-            { desayuno: "Pan integral con queso fresco y tomate", almuerzo: "Pastel de choclo con ensalada", cena: "Crema de verduras y galletas de avena" },
-            { desayuno: "Huevos revueltos con pan integral y tomate", almuerzo: "Pechuga de pollo a la plancha con arroz integral", cena: "Ensalada de quinoa y verduras" }
-          ],
+            { desayuno: "Avena con frutas y leche", almuerzo: "Pollo con arroz integral", cena: "Tortilla con verduras y pan integral" },
+            { desayuno: "Batido de plátano con avena", almuerzo: "Pasta con carne magra", cena: "Sándwich de atún con palta" },
+            { desayuno: "Pan integral con huevo y fruta", almuerzo: "Quinoa con verduras y tofu", cena: "Sopa de legumbres" },
+            { desayuno: "Yogur natural con granola", almuerzo: "Cazuela de vacuno", cena: "Ensalada con garbanzos y pan" },
+            { desayuno: "Smoothie de frutas y avena", almuerzo: "Arroz con lentejas y carne", cena: "Tortilla de atún con vegetales" },
+            { desayuno: "Pan pita con jamón y queso", almuerzo: "Puré con pollo", cena: "Ensalada de quinoa" },
+            { desayuno: "Leche con plátano y cereales", almuerzo: "Fideos con salsa casera", cena: "Sándwich vegetal con hummus" }
+          ]
+        },
+        normal: {
           mesomorfo: [
-            { desayuno: "Avena con fruta y nueces", almuerzo: "Arroz integral con pollo y verduras", cena: "Omelette de espinacas" },
-            { desayuno: "Yogur natural con granola y frutos secos", almuerzo: "Lentejas con ensalada", cena: "Sopa de verduras con pan integral" },
-            { desayuno: "Smoothie de plátano y proteína", almuerzo: "Pasta con salsa de tomate y carne magra", cena: "Tostadas con palta y huevo" },
-            { desayuno: "Pan integral con queso y tomate", almuerzo: "Quinoa con garbanzos y pollo", cena: "Ensalada de
+            { desayuno: "Avena con manzana y canela", almuerzo: "Pechuga de pollo a la plancha con ensalada", cena: "Sopa de verduras" },
+            { desayuno: "Huevos revueltos con pan integral", almuerzo: "Ensalada con salmón", cena: "Tortilla de espinacas" },
+            { desayuno: "Yogur con fruta y semillas", almuerzo: "Quinoa con pollo y verduras", cena: "Puré de zapallo con huevo" },
+            { desayuno: "Smoothie con avena y frutos rojos", almuerzo: "Pasta con verduras al wok", cena: "Tostadas con palta y tomate" },
+            { desayuno: "Pan con mermelada natural", almuerzo: "Cazuela de pavo", cena: "Ensalada mixta con proteína" },
+            { desayuno: "Pan con palta y huevo duro", almuerzo: "Legumbres con arroz", cena: "Tortilla de vegetales" },
+            { desayuno: "Leche vegetal con cereales integrales", almuerzo: "Salmón al horno con papas", cena: "Tostadas con atún" }
+          ]
+        },
+        alto: {
+          endomorfo: [
+            { desayuno: "Fruta fresca y té verde", almuerzo: "Pechuga con ensalada verde", cena: "Verduras salteadas con tofu" },
+            { desayuno: "Yogur bajo en grasa con chía", almuerzo: "Pescado con vegetales", cena: "Sopa de zapallo" },
+            { desayuno: "Smoothie verde (espinaca, pepino, manzana)", almuerzo: "Ensalada con legumbres", cena: "Puré de coliflor" },
+            { desayuno: "Avena con leche descremada", almuerzo: "Wok de verduras y tofu", cena: "Tortilla de claras" },
+            { desayuno: "Pan integral con palta", almuerzo: "Cazuela baja en grasa", cena: "Sopa de verduras" },
+            { desayuno: "Fruta con yogur natural", almuerzo: "Pechuga de pavo al horno", cena: "Verduras al vapor" },
+            { desayuno: "Batido de frutas sin azúcar", almuerzo: "Pollo al vapor con arroz integral", cena: "Tostadas integrales con palta" }
+          ]
+        }
+      },
+
+      // Puedes copiar y pegar bloques similares para: atletismo, MTB, yoga, natación, sedentario...
+      // Asegúrate de replicar las estructuras: bajo-normal-alto y ecto-meso-endomorfo
+
+    };
+
+    function generarPlan() {
+      const categoria = categoriaIMC(imc);
+      const dias = planComidas[deporte]?.[categoria]?.[tipo] || [];
+      const contenedor = document.getElementById("plan");
+
+      if (dias.length === 0) {
+        contenedor.innerHTML = "<p>No hay datos disponibles para tu combinación de IMC, cuerpo y deporte.</p>";
+        return;
+      }
+
+      dias.forEach((dia, idx) => {
+        const div = document.createElement("div");
+        div.className = "dia";
+        div.innerHTML = `
+          <h2>Día ${idx + 1}</h2>
+          <div class="comida"><strong>Desayuno:</strong> ${dia.desayuno}</div>
+          <div class="comida"><strong>Almuerzo:</strong> ${dia.almuerzo}</div>
+          <div class="comida"><strong>Cena:</strong> ${dia.cena}</div>
+        `;
+        contenedor.appendChild(div);
+      });
+    }
+
+    function volver() {
+      location.href = "menu.html";
+    }
+
+    generarPlan();
+  </script>
