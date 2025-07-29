@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MiFitApp - Inicio</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0; padding: 20px;
+    }
+    input, select, button {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      width: 250px;
+    }
+    button {
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>MiFitApp</h1>
+  <input id="nombre" placeholder="Nombre" />
+  <select id="sexo">
+    <option value="masculino">Masculino</option>
+    <option value="femenino">Femenino</option>
+  </select>
+  <button onclick="guardarDatos()">Siguiente</button>
 
+  <script>
+    function guardarDatos() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const sexo = document.getElementById("sexo").value;
+      if(nombre === "") { alert("Ingrese un nombre."); return; }
+      localStorage.setItem("nombre", nombre);
+      localStorage.setItem("sexo", sexo);
+      window.location.href = "datosFisicos.html";
+    }
+  </script>
+</body>
+</html>
