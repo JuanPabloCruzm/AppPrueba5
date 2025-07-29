@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deporte y Disciplina</title>
+  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0; padding: 20px;
+    }
+    select, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Selecciona tu Deporte</h1>
+  <select id="deporte" onchange="mostrarDisciplinas()">
+    <option value="">-- Seleccione deporte --</option>
+    <option value="mtb">MTB</option>
+    <option value="atletismo">Atletismo</option>
+    <option value="natacion">Natación</option>
+    <option value="futbol">Fútbol</option>
+    <option value="gimnasio">Gimnasio</option>
+    <option value="yoga">Yoga</option>
+    <option value="sedentario">Sedentario</option>
+  </select>
 
+  <select id="disciplina" style="display:none;">
+    <option value="">-- Seleccione disciplina --</option>
+  </select>
+
+  <button onclick="guardarDeporte()">Siguiente</button>
+
+  <script>
+    const disciplinas = {
+      mtb: ["Cross Country", "Downhill", "Enduro", "Trail"],
+      atletismo: ["Velocidad", "Fondo", "Medio Fondo", "Marcha"],
+      natacion: ["Crol", "Espalda", "Mariposa", "Pecho", "Velocidad", "Resistencia"],
+      futbol: ["Portero", "Defensa", "Mediocampo", "Delantero"],
+      gimnasio: ["Fuerza", "Hipertrofia", "Resistencia", "Flexibilidad"],
+      yoga: ["Hatha", "Vinyasa", "Ashtanga", "Yin"],
+      sedentario: ["Ninguna"]
+    };
+
+    function mostrarDisciplinas() {
+      const deporte = document.getElementById("deporte").value;
+      const discSelect = document.getElementById("disciplina");
+      discSelect.innerHTML = "<option value=''>-- Seleccione disciplina --</option>";
+
+      if (deporte && disciplinas[deporte]) {
+        disciplinas[deporte].forEach(d => {
+          const option = document.createElement("option");
+          option.value = d.toLowerCase().replace(/\s+/g, '');
+          option.textContent = d;
+          discSelect.appendChild(option);
+        });
+        discSelect.style.display = "block";
+      } else {
+        discSelect.style.display = "none";
+      }
+    }
+
+    function guardarDeporte() {
+      const deporte = document.getElementById("deporte").value;
+      const disciplina = document.getElementById("disciplina").value;
+      if (!deporte) {
+        alert("Selecciona un deporte.");
+        return;
+      }
+      if (disciplinas[deporte].length > 1 && !disciplina) {
+        alert("Selecciona una disciplina.");
+        return;
+      }
+      localStorage.setItem("deporte", deporte);
+      localStorage.setItem("disciplina", disciplina);
+      window.location.href = "menu.html";
+    }
+  </script>
+</body>
+</html>
