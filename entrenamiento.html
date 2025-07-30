@@ -1,1 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>MiFitApp - Entrenamiento</title>
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    body {
+      background-color: #121212;
+      color: #eee;
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #00ffcc;
+    }
+    .dia {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+    .dia h3 {
+      margin-top: 0;
+      color: #ffcc00;
+    }
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 25px;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 8px;
+      color: #121212;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #00ccb3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Plan de Entrenamiento</h1>
+  <div id="planContainer"></div>
+  <button onclick="window.location.href='menu.html'">Volver al Menú Principal</button>
 
+  <script>
+    // Obtener datos guardados
+    const imc = localStorage.getItem("imcCategoria"); // 'sobrepeso', 'bajo', 'normal'
+    const deporte = localStorage.getItem("deporte");
+    const tipoCuerpo = localStorage.getItem("tipoCuerpo"); // 'endomorfo', 'mesomorfo', 'ectomorfo'
+
+    const planContainer = document.getElementById("planContainer");
+
+    const planesEntreno = {
+      mtb: {
+        sobrepeso: [
+          "Día 1: Caminata ligera 30 min + estiramientos",
+          "Día 2: Entrenamiento en bicicleta estática 20 min",
+          "Día 3: Yoga para movilidad 30 min",
+          "Día 4: Descanso activo - caminata 15 min",
+          "Día 5: Ejercicios de fuerza moderados",
+          "Día 6: Bicicleta MTB suave 30 min",
+          "Día 7: Estiramientos y relajación"
+        ],
+        bajo: [
+          "Día 1: Bicicleta MTB 60 min en terreno variado",
+          "Día 2: Entrenamiento de fuerza en gimnasio",
+          "Día 3: Yoga para flexibilidad",
+          "Día 4: Bicicleta MTB técnica downhill",
+          "Día 5: Cardio intenso 45 min",
+          "Día 6: Entrenamiento de fuerza avanzado",
+          "Día 7: Recuperación activa"
+        ],
+        normal: [
+          "Día 1: Bicicleta MTB 45 min ruta mixta",
+          "Día 2: Entrenamiento funcional en gimnasio",
+          "Día 3: Yoga para respiración y movilidad",
+          "Día 4: Técnica de descenso en MTB",
+          "Día 5: Cardio moderado 30 min",
+          "Día 6: Fuerza y resistencia",
+          "Día 7: Estiramientos profundos"
+        ]
+      },
+      gimnasio: {
+        sobrepeso: [
+          "Día 1: Caminata 20 min + estiramientos",
+          "Día 2: Circuito de máquinas con poco peso",
+          "Día 3: Cardio suave 20 min",
+          "Día 4: Entrenamiento de fuerza básico",
+          "Día 5: Bicicleta estática 20 min",
+          "Día 6: Yoga para relajación",
+          "Día 7: Descanso"
+        ],
+        bajo: [
+          "Día 1: Entrenamiento de fuerza intensivo",
+          "Día 2: Cardio de alta intensidad 30 min",
+          "Día 3: Yoga para flexibilidad",
+          "Día 4: Circuito funcional avanzado",
+          "Día 5: Pesas libres",
+          "Día 6: Bicicleta estática 45 min",
+          "Día 7: Recuperación activa"
+        ],
+        normal: [
+          "Día 1: Fuerza y resistencia en gimnasio",
+          "Día 2: Cardio moderado 30 min",
+          "Día 3: Yoga y estiramientos",
+          "Día 4: Entrenamiento funcional",
+          "Día 5: Pesas y máquinas",
+          "Día 6: Cardio suave",
+          "Día 7: Descanso activo"
+        ]
+      },
+      yoga: {
+        sobrepeso: [
+          "Día 1: Yoga suave para principiantes",
+          "Día 2: Meditación y respiración",
+          "Día 3: Posturas básicas de yoga",
+          "Día 4: Estiramientos y movilidad",
+          "Día 5: Yoga restaurativo",
+          "Día 6: Respiración profunda",
+          "Día 7: Relajación guiada"
+        ],
+        bajo: [
+          "Día 1: Yoga avanzado y estiramientos",
+          "Día 2: Meditación profunda",
+          "Día 3: Posturas complejas",
+          "Día 4: Yoga para fuerza y equilibrio",
+          "Día 5: Respiración y concentración",
+          "Día 6: Vinyasa flow intenso",
+          "Día 7: Relajación y mindfulness"
+        ],
+        normal: [
+          "Día 1: Yoga intermedio",
+          "Día 2: Respiración y meditación",
+          "Día 3: Posturas de fuerza",
+          "Día 4: Vinyasa flow",
+          "Día 5: Estiramientos y equilibrio",
+          "Día 6: Yoga restaurativo",
+          "Día 7: Relajación profunda"
+        ]
+      },
+      atletismo: {
+        sobrepeso: [
+          "Día 1: Caminata rápida 30 min",
+          "Día 2: Entrenamiento de técnica básica",
+          "Día 3: Cardio suave 20 min",
+          "Día 4: Estiramientos y movilidad",
+          "Día 5: Circuito de fuerza leve",
+          "Día 6: Trote suave 20 min",
+          "Día 7: Descanso activo"
+        ],
+        bajo: [
+          "Día 1: Entrenamiento de velocidad",
+          "Día 2: Resistencia con trotes largos",
+          "Día 3: Técnica de salto y coordinación",
+          "Día 4: Entrenamiento de fuerza",
+          "Día 5: Intervalos de alta intensidad",
+          "Día 6: Recuperación activa",
+          "Día 7: Yoga para corredores"
+        ],
+        normal: [
+          "Día 1: Trote moderado 40 min",
+          "Día 2: Técnica y velocidad",
+          "Día 3: Entrenamiento de fuerza",
+          "Día 4: Cardio intenso 30 min",
+          "Día 5: Estiramientos profundos",
+          "Día 6: Intervalos y resistencia",
+          "Día 7: Descanso"
+        ]
+      },
+      natacion: {
+        sobrepeso: [
+          "Día 1: Nado suave 20 min",
+          "Día 2: Ejercicios de respiración",
+          "Día 3: Nado con tabla 15 min",
+          "Día 4: Estiramientos en piscina",
+          "Día 5: Nado continuo 25 min",
+          "Día 6: Relajación y movilidad",
+          "Día 7: Descanso"
+        ],
+        bajo: [
+          "Día 1: Series de velocidad",
+          "Día 2: Técnica de brazada",
+          "Día 3: Resistencia en piscina",
+          "Día 4: Nado con aletas",
+          "Día 5: Entrenamiento de fuerza en seco",
+          "Día 6: Estiramientos",
+          "Día 7: Recuperación"
+        ],
+        normal: [
+          "Día 1: Nado continuo 30 min",
+          "Día 2: Técnica y velocidad",
+          "Día 3: Series de resistencia",
+          "Día 4: Entrenamiento de fuerza",
+          "Día 5: Nado en intervalos",
+          "Día 6: Estiramientos y movilidad",
+          "Día 7: Descanso activo"
+        ]
+      },
+      sedentario: {
+        sobrepeso: [
+          "Día 1: Caminata suave 15 min",
+          "Día 2: Estiramientos básicos",
+          "Día 3: Yoga para principiantes",
+          "Día 4: Caminata 20 min",
+          "Día 5: Ejercicios de movilidad",
+          "Día 6: Respiración y relajación",
+          "Día 7: Descanso"
+        ],
+        bajo: [
+          "Día 1: Ejercicios de fuerza leve",
+          "Día 2: Caminata rápida 30 min",
+          "Día 3: Yoga intermedio",
+          "Día 4: Cardio suave 20 min",
+          "Día 5: Estiramientos y movilidad",
+          "Día 6: Fuerza en seco",
+          "Día 7: Recuperación"
+        ],
+        normal: [
+          "Día 1: Caminata 30 min",
+          "Día 2: Entrenamiento funcional",
+          "Día 3: Yoga y estiramientos",
+          "Día 4: Cardio moderado",
+          "Día 5: Fuerza leve",
+          "Día 6: Estiramientos profundos",
+          "Día 7: Descanso activo"
+        ]
+      }
+    };
+
+    if (!planesEntreno[deporte]) {
+      planContainer.innerHTML = `<p>No hay plan definido para el deporte "${deporte}".</p>`;
+    } else if (!planesEntreno[deporte][imc]) {
+      planContainer.innerHTML = `<p>No hay plan definido para la categoría IMC "${imc}".</p>`;
+    } else {
+      const plan = planesEntreno[deporte][imc];
+      let html = '';
+      plan.forEach((dia, index) => {
+        html += `<div class="dia"><h3>Día ${index + 1}</h3><p>${dia}</p></div>`;
+      });
+      planContainer.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
