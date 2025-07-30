@@ -1,73 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Datos Físicos - MiFitApp</title>
-  <link rel="icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Datos Físicos</title>
+  <link rel="icon" href="favicon.ico">
   <style>
     body {
       background-color: #121212;
       color: white;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0; padding: 20px;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
     }
     input, select, button {
-      margin: 10px 0;
-      padding: 10px;
-      width: 250px;
-      font-size: 16px;
+      margin: 10px;
+      padding: 12px;
+      width: 100%;
       border-radius: 10px;
       border: none;
+      font-size: 16px;
     }
     button {
-      background-color: #1f1f1f;
+      background-color: #333;
       color: white;
       cursor: pointer;
     }
-    .resultado {
-      margin-top: 15px;
-      font-size: 18px;
-      text-align: center;
+    button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>Datos Físicos</h1>
-  <input type="number" id="edad" placeholder="Edad (años)" min="5" max="120" />
-  <input type="number" id="peso" placeholder="Peso (kg)" min="20" max="300" step="0.1" />
-  <input type="number" id="estatura" placeholder="Estatura (cm)" min="50" max="250" />
-  <select id="tipoCuerpo">
-    <option value="ectomorfo">Ectomorfo</option>
-    <option value="mesomorfo">Mesomorfo</option>
-    <option value="endomorfo">Endomorfo</option>
-  </select>
-  <button onclick="calcularIMC()">Calcular IMC y Continuar</button>
-  <div class="resultado" id="resultadoIMC"></div>
+  <h2 id="saludo"></h2>
+
+  <form onsubmit="guardarDatosFisicos(event)">
+    <input type="number" id="edad" placeholder="Edad" required><br>
+    <input type="number" id="peso" placeholder="Peso en kg" required><br>
+    <input type="number" id="estatura" placeholder="Estatura en cm" required><br>
+    <select id="cuerpo" required>
+      <option value="">Tipo de cuerpo</option>
+      <option value="ectomorfo">Ectomorfo</option>
+      <option value="mesomorfo">Mesomorfo</option>
+      <option value="endomorfo">Endomorfo</option>
+    </select><br>
+    <button type="submit">Calcular IMC</button>
+  </form>
 
   <script>
-    function calcularIMC() {
-      const edad = Number(document.getElementById("edad").value);
-      const peso = Number(document.getElementById("peso").value);
-      const estaturaCm = Number(document.getElementById("estatura").value);
-      const tipo = document.getElementById("tipoCuerpo").value;
-      if (!edad || !peso || !estaturaCm) {
-        alert("Completa todos los campos correctamente.");
-        return;
-      }
-      const estaturaM = estaturaCm / 100;
-      const imc = peso / (estaturaM * estaturaM);
-      localStorage.setItem("edad", edad);
-      localStorage.setItem("peso", peso);
-      localStorage.setItem("estatura", estaturaCm);
-      localStorage.setItem("tipoCuerpo", tipo);
-      localStorage.setItem("imc", imc.toFixed(2));
-      window.location.href = "deporte.html";
+    const nombre = localStorage.getItem('nombre');
+    const sexo = localStorage.getItem('sexo');
+    let saludo = 'Hola';
+    if (sexo === 'masculino') saludo = 'Sr. ' + nombre;
+    else if (sexo === 'femenino') saludo = 'Srta. ' + nombre;
+    document.getElementById('saludo').textContent = saludo;
+
+    function guardarDatosFisicos(event) {
+      event.preventDefault();
+      const edad = document.getElementById('edad').value;
+      const peso = document.getElementById('peso').value;
+      const estatura = document.getElementById('estatura').value;
+      const cuerpo = document.getElementById('cuerpo').value;
+      localStorage.setItem('edad', edad);
+      localStorage.setItem('peso', peso);
+      localStorage.setItem('estatura', estatura);
+      localStorage.setItem('cuerpo', cuerpo);
+
+      // Cálculo del IMC
+      const alturaM = estatura / 100;
+      const imc = peso / (alturaM * alturaM);
+      localStorage.setItem('imc', imc.toFixed(1));
+
+      window.location.href = 'deporte.html';
     }
   </script>
 </body>
