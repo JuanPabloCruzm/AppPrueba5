@@ -19,4 +19,41 @@
       border-radius: 10px;
       border: none;
     }
-    but
+    button {
+      background-color: #333;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h2>Selecciona tu deporte</h2>
+  <select id="deporte">
+    <option value="">-- Elige una opción --</option>
+    <option value="mtb">MTB (Ciclismo de montaña)</option>
+    <option value="atletismo">Atletismo</option>
+    <option value="gimnasio">Gimnasio</option>
+    <option value="yoga">Yoga</option>
+    <option value="natacion">Natación</option>
+    <option value="sedentario">Sedentario</option>
+  </select><br>
+
+  <button onclick="irA('alimentacion.html')">Plan de Alimentación</button>
+  <button onclick="irA('entrenamiento.html')">Plan de Entrenamiento</button>
+
+  <script>
+    function irA(pagina) {
+      const deporte = document.getElementById('deporte').value;
+      if (deporte === "") {
+        alert("Por favor selecciona un deporte");
+        return;
+      }
+      localStorage.setItem('deporte', deporte);
+      window.location.href = pagina;
+    }
+  </script>
+</body>
+</html>
