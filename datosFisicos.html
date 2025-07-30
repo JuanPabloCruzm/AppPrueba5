@@ -1,84 +1,132 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Datos Físicos</title>
-  <link rel="icon" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <title>Datos Físicos - MiFitApp</title>
+  <link rel="icon" href="favicon.ico" />
   <style>
     body {
       background-color: #121212;
-      color: white;
+      color: #eee;
       font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: auto;
       padding: 20px;
     }
-    h2 {
+    h1 {
       text-align: center;
+      margin-bottom: 10px;
     }
-    form {
-      max-width: 400px;
-      margin: 0 auto;
+    #saludo {
       text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #00ffcc;
     }
-    input, select, button {
-      margin: 10px;
-      padding: 12px;
+    label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+    input, select {
       width: 100%;
-      border-radius: 10px;
+      padding: 10px;
+      border-radius: 8px;
       border: none;
       font-size: 16px;
     }
     button {
-      background-color: #333;
-      color: white;
+      margin-top: 25px;
+      width: 100%;
+      padding: 15px;
+      background-color: #00ffcc;
+      color: #121212;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
       cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #555;
+      background-color: #00ccb3;
     }
   </style>
 </head>
 <body>
-  <h2 id="saludo"></h2>
+  <h1>Datos Físicos</h1>
+  <div id="saludo"></div>
 
-  <form onsubmit="guardarDatosFisicos(event)">
-    <input type="number" id="edad" placeholder="Edad" required><br>
-    <input type="number" id="peso" placeholder="Peso en kg" required><br>
-    <input type="number" id="estatura" placeholder="Estatura en cm" required><br>
-    <select id="cuerpo" required>
-      <option value="">Tipo de cuerpo</option>
-      <option value="ectomorfo">Ectomorfo</option>
-      <option value="mesomorfo">Mesomorfo</option>
+  <form id="formDatosFisicos">
+    <label for="edad">Edad (años):</label>
+    <input type="number" id="edad" min="1" max="120" required />
+
+    <label for="peso">Peso (kg):</label>
+    <input type="number" id="peso" min="1" max="500" step="0.1" required />
+
+    <label for="altura">Altura (cm):</label>
+    <input type="number" id="altura" min="30" max="300" step="0.1" required />
+
+    <label for="tipoCuerpo">Tipo de cuerpo:</label>
+    <select id="tipoCuerpo" required>
+      <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
       <option value="endomorfo">Endomorfo</option>
-    </select><br>
-    <button type="submit">Calcular IMC</button>
+      <option value="mesomorfo">Mesomorfo</option>
+      <option value="ectomorfo">Ectomorfo</option>
+    </select>
+
+    <button type="submit">Calcular IMC y Continuar</button>
   </form>
 
   <script>
-    const nombre = localStorage.getItem('nombre');
-    const sexo = localStorage.getItem('sexo');
-    let saludo = 'Hola';
-    if (sexo === 'masculino') saludo = 'Sr. ' + nombre;
-    else if (sexo === 'femenino') saludo = 'Srta. ' + nombre;
-    document.getElementById('saludo').textContent = saludo;
+    // Al cargar, muestra saludo con Sr. / Srta. según sexo y nombre
+    window.addEventListener('load', () => {
+      const sexo = localStorage.getItem('sexo');
+      const nombre = localStorage.getItem('nombre');
+      const saludoDiv = document.getElementById('saludo');
 
-    function guardarDatosFisicos(event) {
+      if(sexo && nombre){
+        const prefijo = sexo === 'masculino' ? 'Sr.' : 'Srta.';
+        saludoDiv.textContent = `Hola ${prefijo} ${nombre}, por favor ingresa tus datos físicos.`;
+      } else {
+        saludoDiv.textContent = 'Por favor completa tu sexo y nombre en la página anterior.';
+      }
+    });
+
+    document.getElementById('formDatosFisicos').addEventListener('submit', function(event){
       event.preventDefault();
-      const edad = document.getElementById('edad').value;
-      const peso = document.getElementById('peso').value;
-      const estatura = document.getElementById('estatura').value;
-      const cuerpo = document.getElementById('cuerpo').value;
+
+      const edad = parseInt(document.getElementById('edad').value);
+      const peso = parseFloat(document.getElementById('peso').value);
+      const alturaCm = parseFloat(document.getElementById('altura').value);
+      const tipoCuerpo = document.getElementById('tipoCuerpo').value;
+
+      if(isNaN(edad) || isNaN(peso) || isNaN(alturaCm) || !tipoCuerpo){
+        alert('Por favor completa todos los campos correctamente.');
+        return;
+      }
+
+      // Calcular IMC
+      const alturaM = alturaCm / 100;
+      const imc = peso / (alturaM * alturaM);
+
+      // Guardar en localStorage
       localStorage.setItem('edad', edad);
       localStorage.setItem('peso', peso);
-      localStorage.setItem('estatura', estatura);
-      localStorage.setItem('cuerpo', cuerpo);
+      localStorage.setItem('altura', alturaCm);
+      localStorage.setItem('tipoCuerpo', tipoCuerpo);
+      localStorage.setItem('imc', imc.toFixed(2));
 
-      // Cálculo del IMC
-      const alturaM = estatura / 100;
-      const imc = peso / (alturaM * alturaM);
-      localStorage.setItem('imc', imc.toFixed(1));
+      // Guardar categoría IMC
+      let categoria = '';
+      if(imc < 18.5) categoria = 'bajo';
+      else if(imc >= 18.5 && imc <= 24.9) categoria = 'normal';
+      else categoria = 'sobrepeso';
 
+      localStorage.setItem('imcCategoria', categoria);
+
+      // Redirigir a selección de deporte
       window.location.href = 'deporte.html';
-    }
+    });
   </script>
 </body>
 </html>
