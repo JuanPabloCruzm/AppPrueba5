@@ -2,178 +2,268 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <title>Plan de Alimentación</title>
+  <title>Plan de Alimentación Completo</title>
+  <link rel="icon" href="favicon.ico" />
   <style>
     body {
       background-color: #121212;
       color: #eee;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      min-height: 100vh;
     }
-    h1, h2 {
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
       text-align: center;
-      color: #fff;
+      margin-bottom: 20px;
     }
-    .dia {
+    .plan {
+      margin-bottom: 40px;
+      padding: 20px;
+      border: 1px solid #444;
+      border-radius: 10px;
       background-color: #1e1e1e;
-      margin: 15px 0;
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
     }
-    .comida {
-      margin: 5px 0;
+    .plan h2 {
+      margin-top: 0;
+      color: #00ffcc;
     }
-    .volver {
+    .plan h3 {
+      margin-bottom: 5px;
+      color: #ffcc00;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    button {
       display: block;
-      text-align: center;
-      margin-top: 20px;
-      color: #aaa;
-      text-decoration: underline;
+      margin: 30px auto 0;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>Plan de Alimentación</h1>
-  <div id="plan"></div>
-  <a class="volver" href="menu.html">← Volver al menú</a>
+  <div class="container">
+    <h1>Tu Plan de Alimentación Personalizado</h1>
+    <div id="contenido"></div>
+    <button onclick="window.location.href='deporte.html'">Volver al Menú</button>
+  </div>
 
   <script>
-    const imc = localStorage.getItem('imc');
-    const cuerpo = localStorage.getItem('cuerpo');
-    const deporte = localStorage.getItem('deporte');
+    // Obtener datos guardados
+    const imc = localStorage.getItem("imcCategoria"); // 'sobrepeso', 'bajo', 'normal'
+    const deporte = localStorage.getItem("deporte"); // 'mtb', 'gimnasio', 'yoga', 'atletismo', 'natacion', 'sedentario'
 
+    const contenido = document.getElementById("contenido");
+
+    // Planes completos para cada deporte y categoría IMC (7 días con desayuno, almuerzo y cena)
     const planes = {
-      'bajo': {
-        'ectomorfo': {
-          'general': [
-            ["Pan integral con palta", "Tazón de avena con fruta", "Huevos revueltos con espinaca"],
-            ["Smoothie con yogurt y avena", "Pan pita con hummus", "Tortilla de papas con ensalada"],
-            ["Hotcakes de avena", "Ensalada de legumbres", "Lasaña vegetariana"],
-            ["Tostadas con mantequilla de maní", "Pollo con arroz integral", "Sopa de verduras con pan integral"],
-            ["Fruta + frutos secos", "Pastas con tomate y atún", "Cazuela de ave"],
-            ["Omelette con queso", "Bowl de quinoa y garbanzos", "Empanadas al horno + ensalada"],
-            ["Smoothie de frutas", "Arroz con lentejas", "Ensalada de pollo"]
-          ]
-        },
-        'endomorfo': {
-          'general': [
-            ["Huevos cocidos + frutas", "Filete de pollo con ensalada", "Pescado con verduras salteadas"],
-            ["Batido verde", "Tortilla con espinacas", "Zapallitos rellenos"],
-            ["Avena con leche vegetal", "Ensalada de quinoa", "Brochetas de pavo"],
-            ["Pan integral con queso fresco", "Sopaipilla al horno + ensalada", "Pollo al horno con papas cocidas"],
-            ["Yogurt con frutos secos", "Garbanzos guisados", "Verduras al vapor + arroz"],
-            ["Cereal sin azúcar", "Tallarines integrales con carne", "Cazuela de verduras"],
-            ["Fruta con nueces", "Wok de pollo", "Pescado al vapor"]
-          ]
-        },
-        'mesomorfo': {
-          'general': [
-            ["Pan integral con huevo", "Tallarines con salsa natural", "Pollo grillado con puré"],
-            ["Frutas + yogurt", "Arroz con atún", "Ensalada de pollo"],
-            ["Avena + semillas", "Wrap integral de pollo", "Salmón con papas y espárragos"],
-            ["Tostadas con palta", "Bowl de legumbres", "Tortilla española"],
-            ["Leche + avena", "Hamburguesas caseras", "Estofado de carne magra"],
-            ["Smoothie de frutas", "Quiche con ensalada", "Fideos con vegetales"],
-            ["Pan + jamón de pavo", "Ensalada mixta", "Pescado al horno"]
-          ]
-        }
+      mtb: {
+        sobrepeso: [
+          ["Yogur bajo en grasa con frutas", "Ensalada de pollo a la plancha", "Sopa de verduras"],
+          ["Pan integral con aguacate", "Verduras al vapor con pescado", "Tortilla de espinaca"],
+          ["Fruta fresca con avena", "Quinoa con vegetales", "Sopa de calabaza"],
+          ["Infusión con tostadas integrales", "Ensalada de lentejas", "Pechuga de pollo al horno"],
+          ["Batido verde", "Arroz integral con verduras", "Verduras salteadas"],
+          ["Yogur natural sin azúcar", "Papas cocidas con huevo", "Ensalada mixta"],
+          ["Té con pan integral", "Guiso de verduras", "Filete de pescado a la plancha"]
+        ],
+        bajo: [
+          ["Batido de plátano y avena", "Pasta con pollo y verduras", "Arroz con atún y palta"],
+          ["Pan integral con palta", "Ensalada con garbanzos y huevo", "Sopa de lentejas con arroz"],
+          ["Smoothie de mango y yogur", "Quinoa con pollo y zapallo", "Tortilla de verduras y arroz"],
+          ["Cereal con leche y banana", "Wrap de atún y vegetales", "Papas cocidas con huevo duro"],
+          ["Tostadas con mantequilla de maní", "Fideos con salsa de tomate natural", "Pescado al horno con puré"],
+          ["Avena cocida con frutas", "Hamburguesa de lentejas", "Pollo al jugo con arroz"],
+          ["Yogur con granola", "Porotos granados", "Pastel de papas"]
+        ],
+        normal: [
+          ["Pan integral con huevo", "Pollo al horno con arroz integral", "Ensalada fresca"],
+          ["Avena con plátano", "Arroz integral con pescado y verduras", "Sopa de verduras"],
+          ["Smoothie de frutas", "Pollo salteado con vegetales", "Ensalada con quinoa"],
+          ["Tostadas con aguacate", "Lentejas con arroz integral", "Pescado a la plancha"],
+          ["Yogur con frutas", "Wrap de pollo", "Verduras al horno"],
+          ["Cereal integral con leche", "Arroz con carne magra", "Ensalada verde"],
+          ["Pan con mermelada natural", "Pasta integral con salsa de tomate", "Frutas frescas"]
+        ]
       },
-      'normal': {
-        'ectomorfo': {
-          'general': [
-            ["Omelette con tomate", "Tallarines con atún", "Arroz con pollo"],
-            ["Tostadas + frutas", "Sándwich integral", "Estofado con arroz"],
-            ["Avena con nueces", "Fideos con carne", "Bowl de quinoa y huevo"],
-            ["Pan con palta y huevo", "Cazuela de vacuno", "Tortilla de verduras"],
-            ["Smoothie con plátano", "Empanadas + ensalada", "Lentejas con arroz"],
-            ["Leche con avena", "Pollo al curry", "Sopa de zapallo"],
-            ["Frutas con yogur", "Wrap de pollo", "Pescado empanizado"]
-          ]
-        },
-        'endomorfo': {
-          'general': [
-            ["Pan integral con pavo", "Verduras salteadas con carne", "Pescado al horno"],
-            ["Yogurt natural + semillas", "Quinoa con garbanzos", "Estofado de ave"],
-            ["Batido de proteína vegetal", "Arroz integral con tofu", "Tallarines con salsa natural"],
-            ["Tostadas integrales", "Cazuela ligera", "Wok de vegetales y pollo"],
-            ["Frutas + almendras", "Hamburguesa casera", "Sopa de verduras"],
-            ["Pan con queso fresco", "Ensalada con legumbres", "Carne magra con puré de papas"],
-            ["Leche + fruta", "Tortilla de espinacas", "Salmón a la plancha"]
-          ]
-        },
-        'mesomorfo': {
-          'general': [
-            ["Avena con frutas", "Arroz con carne", "Pollo con verduras"],
-            ["Pan integral + huevo", "Tallarines con salsa casera", "Pescado con papas cocidas"],
-            ["Batido verde", "Wrap vegetal", "Hamburguesas caseras"],
-            ["Yogurt natural", "Bowl de ensalada", "Estofado de vacuno"],
-            ["Frutas secas + avena", "Cazuela de pollo", "Wok con arroz"],
-            ["Smoothie con leche", "Garbanzos cocidos", "Pechuga grillada"],
-            ["Pan pita + hummus", "Tortilla vegetal", "Empanada con ensalada"]
-          ]
-        }
+      gimnasio: {
+        sobrepeso: [
+          ["Yogur descremado", "Ensalada de pollo", "Sopa de zapallo"],
+          ["Pan integral con palta", "Tortilla vegetal", "Pescado al vapor"],
+          ["Fruta con avena", "Wrap vegetariano", "Charquicán sin grasa"],
+          ["Infusión y tostadas", "Quinoa con verduras", "Guiso de zapallo"],
+          ["Té con pan de salvado", "Cazuela sin grasa", "Tallarines integrales"],
+          ["Smoothie verde", "Papas cocidas con huevo", "Tortilla de espinaca"],
+          ["Yogur natural", "Arroz integral con legumbres", "Sándwich de vegetales"]
+        ],
+        bajo: [
+          ["Avena con leche y miel", "Arroz con pollo y ensalada", "Pan integral con palta y huevo"],
+          ["Tostadas con queso y fruta", "Fideos integrales con carne magra", "Papas al horno con atún"],
+          ["Smoothie proteico", "Lentejas con arroz", "Pollo salteado con verduras"],
+          ["Huevos revueltos con pan", "Ensalada de garbanzos", "Wrap de pollo y tomate"],
+          ["Cereal integral con leche", "Pescado con puré", "Ensalada de arroz con huevo"],
+          ["Yogur con fruta", "Guiso de carne con arroz", "Pan con mantequilla de maní"],
+          ["Panqueques con frutas", "Cazuela", "Tortilla de espinaca"]
+        ],
+        normal: [
+          ["Pan con palta", "Pollo al horno con papas", "Yogur con frutas"],
+          ["Cereal con leche", "Tortilla de espinaca", "Pescado con arroz"],
+          ["Pan con huevo", "Porotos con zapallo", "Pollo salteado"],
+          ["Avena con manzana", "Carne magra con puré", "Tortilla de papas"],
+          ["Pan con jamón de pavo", "Lentejas con arroz", "Filete de pescado"],
+          ["Smoothie proteico", "Arroz con pollo", "Sopa de verduras"],
+          ["Panqueques con frutas", "Ensalada completa", "Pizza saludable"]
+        ]
       },
-      'sobrepeso': {
-        'ectomorfo': {
-          'general': [
-            ["Frutas + yogur", "Ensalada con proteína", "Sopa de verduras"],
-            ["Avena sin azúcar", "Wrap de vegetales", "Tallarines integrales"],
-            ["Pan integral con palta", "Garbanzos al curry", "Pescado al vapor"],
-            ["Smoothie verde", "Arroz con tofu", "Cazuela de verduras"],
-            ["Tostadas + huevo cocido", "Lentejas con zapallo", "Estofado de pollo ligero"],
-            ["Yogurt con semillas", "Tortilla de acelga", "Ensalada completa"],
-            ["Cereal integral", "Pollo cocido + ensalada", "Verduras al vapor"]
-          ]
-        },
-        'endomorfo': {
-          'general': [
-            ["Batido con proteína vegetal", "Sopa de legumbres", "Wok de verduras"],
-            ["Frutas + avena", "Cazuela baja en grasa", "Tallarines integrales con vegetales"],
-            ["Tostadas con hummus", "Ensalada grande", "Pechuga al horno"],
-            ["Yogurt natural", "Tortilla de claras", "Sopa de zapallo"],
-            ["Smoothie verde", "Quinoa con verduras", "Filete magro a la plancha"],
-            ["Pan integral con palta", "Lentejas light", "Estofado sin grasa"],
-            ["Leche vegetal + frutas", "Wrap vegetal", "Pescado cocido"]
-          ]
-        },
-        'mesomorfo': {
-          'general': [
-            ["Pan integral + palta", "Verduras al vapor", "Tallarines con salsa casera"],
-            ["Frutas + avena", "Sopa de legumbres", "Carne cocida con ensalada"],
-            ["Yogurt bajo en grasa", "Quinoa con pavo", "Cazuela de ave ligera"],
-            ["Smoothie + semillas", "Wrap con espinaca", "Hamburguesa vegetal"],
-            ["Tostadas con huevo", "Guiso de lentejas", "Bowl de ensalada"],
-            ["Cereal integral", "Pollo grillado", "Verduras salteadas"],
-            ["Frutas frescas", "Tallarines con vegetales", "Sopa saludable"]
-          ]
-        }
+      yoga: {
+        sobrepeso: [
+          ["Té con avena", "Sopa de verduras", "Ensalada con huevo"],
+          ["Yogur descremado", "Pollo con ensalada verde", "Tortilla de espinaca"],
+          ["Fruta con avena", "Guiso de zapallo italiano", "Jugo natural y tostadas integrales"],
+          ["Smoothie verde", "Cazuela de pavo", "Ensalada con lentejas"],
+          ["Pan integral con tomate", "Arroz integral con verduras", "Pescado al vapor"],
+          ["Huevos duros con fruta", "Hamburguesa de soya", "Verduras al horno"],
+          ["Yogur bajo en grasa", "Porotos granados light", "Tortilla de brócoli"]
+        ],
+        bajo: [
+          ["Smoothie de espinaca y mango", "Tofu salteado con verduras", "Lentejas con arroz"],
+          ["Avena con almendras", "Sopa de verduras", "Tortilla de zapallito"],
+          ["Pan integral con palta", "Arroz integral con vegetales", "Curry de garbanzos"],
+          ["Batido de frutas", "Ensalada de quinoa", "Papas con espinaca"],
+          ["Yogur vegetal con fruta", "Guiso de lentejas", "Hamburguesa vegetal"],
+          ["Cereal integral con leche de avena", "Fideos integrales con tofu", "Verduras salteadas"],
+          ["Pan con hummus", "Porotos con zapallo", "Pastel de verduras"]
+        ],
+        normal: [
+          ["Té con avena", "Sopa de verduras", "Ensalada con huevo"],
+          ["Yogur descremado", "Pollo con ensalada verde", "Tortilla de espinaca"],
+          ["Fruta con avena", "Guiso de zapallo italiano", "Jugo natural y tostadas integrales"],
+          ["Smoothie verde", "Cazuela de pavo", "Ensalada con lentejas"],
+          ["Pan integral con tomate", "Arroz integral con verduras", "Pescado al vapor"],
+          ["Huevos duros con fruta", "Hamburguesa de soya", "Verduras al horno"],
+          ["Yogur bajo en grasa", "Porotos granados", "Tortilla de brócoli"]
+        ]
+      },
+      atletismo: {
+        sobrepeso: [
+          ["Yogur bajo en grasa", "Ensalada de pollo", "Sopa de zapallo"],
+          ["Pan integral con palta", "Tortilla vegetal", "Pescado al vapor"],
+          ["Fruta con avena", "Wrap vegetariano", "Charquicán sin grasa"],
+          ["Infusión y tostadas", "Quinoa con verduras", "Guiso de zapallo"],
+          ["Té con pan de salvado", "Cazuela sin grasa", "Tallarines integrales"],
+          ["Smoothie verde", "Papas cocidas con huevo", "Tortilla de espinaca"],
+          ["Yogur natural", "Arroz integral con legumbres", "Sándwich de vegetales"]
+        ],
+        bajo: [
+          ["Smoothie de plátano y avena", "Fideos con carne y verduras", "Puré con huevo y ensalada"],
+          ["Pan con palta y leche", "Lentejas con arroz", "Cazuela con pollo"],
+          ["Yogur con frutas secas", "Arroz con huevo", "Charquicán con carne"],
+          ["Batido de leche y manzana", "Ensalada con atún", "Empanadas al horno y verduras"],
+          ["Tostadas con miel", "Pollo al horno con arroz", "Pizza casera con vegetales"],
+          ["Pan integral con queso", "Wrap de pavo", "Tallarines con carne"],
+          ["Fruta picada con yogur", "Ensalada de garbanzos", "Cazuela de vacuno"]
+        ],
+        normal: [
+          ["Avena con plátano", "Pollo con arroz integral", "Sopa de verduras"],
+          ["Tostadas con tomate", "Tallarines con carne magra", "Pescado con puré"],
+          ["Batido de frutas", "Wrap de pollo", "Empanadas integrales"],
+          ["Yogur natural con cereal", "Ensalada completa", "Sándwich de atún"],
+          ["Pan con palta", "Pechuga con ensalada", "Fideos con vegetales"],
+          ["Smoothie con leche vegetal", "Cazuela liviana", "Tortilla de verduras"],
+          ["Infusión y pan integral", "Sopa de legumbres", "Pizza vegetal"]
+        ]
+      },
+      natacion: {
+        sobrepeso: [
+          ["Yogur descremado", "Ensalada de pollo", "Sopa de zapallo"],
+          ["Pan integral con palta", "Tortilla vegetal", "Pescado al vapor"],
+          ["Fruta con avena", "Wrap vegetariano", "Charquicán sin grasa"],
+          ["Infusión y tostadas", "Quinoa con verduras", "Guiso de zapallo"],
+          ["Té con pan de salvado", "Cazuela sin grasa", "Tallarines integrales"],
+          ["Smoothie verde", "Papas cocidas con huevo", "Tortilla de espinaca"],
+          ["Yogur natural", "Arroz integral con legumbres", "Sándwich de vegetales"]
+        ],
+        bajo: [
+          ["Batido de plátano y avena", "Fideos con carne y verduras", "Puré con huevo y ensalada"],
+          ["Pan con palta y leche", "Lentejas con arroz", "Cazuela con pollo"],
+          ["Yogur con frutas secas", "Arroz con huevo", "Charquicán con carne"],
+          ["Batido de leche y manzana", "Ensalada con atún", "Empanadas al horno y verduras"],
+          ["Tostadas con miel", "Pollo al horno con arroz", "Pizza casera con vegetales"],
+          ["Pan integral con queso", "Wrap de pavo", "Tallarines con carne"],
+          ["Fruta picada con yogur", "Ensalada de garbanzos", "Cazuela de vacuno"]
+        ],
+        normal: [
+          ["Pan integral y huevo", "Pollo al horno", "Sopa de verduras"],
+          ["Batido de avena", "Fideos con carne", "Pescado con arroz"],
+          ["Yogur y fruta", "Ensalada completa", "Wrap de atún"],
+          ["Avena con frutas", "Pechuga grillada", "Pizza casera"],
+          ["Pan con palta", "Empanadas horneadas", "Tallarines con vegetales"],
+          ["Té con tostadas", "Ensalada de legumbres", "Tortilla vegetal"],
+          ["Smoothie verde", "Lentejas con arroz", "Sopa de pollo"]
+        ]
+      },
+      sedentario: {
+        sobrepeso: [
+          ["Infusión y fruta", "Ensalada con atún", "Sopa vegetal"],
+          ["Yogur descremado", "Wrap de vegetales", "Cazuela baja en grasa"],
+          ["Pan integral con tomate", "Lentejas cocidas", "Pizza vegetal"],
+          ["Smoothie verde", "Arroz integral con huevo", "Sándwich de atún"],
+          ["Té con galletas integrales", "Guiso sin grasa", "Empanadas horneadas"],
+          ["Frutas mixtas", "Ensalada completa", "Tortilla vegetal"],
+          ["Batido detox", "Wrap de pavo", "Sopa con pollo"]
+        ],
+        bajo: [
+          ["Pan con palta", "Lentejas con arroz", "Tortilla con ensalada"],
+          ["Yogur con cereal", "Papas cocidas con huevo", "Charquicán"],
+          ["Smoothie con avena", "Arroz con vegetales", "Pizza casera"],
+          ["Tostadas con queso fresco", "Wrap de pavo", "Fideos con salsa"],
+          ["Infusión con frutas", "Guiso de legumbres", "Ensalada de pollo"],
+          ["Pan con huevo", "Chapsui de verduras", "Sopa de carne"],
+          ["Batido de leche", "Tallarines con carne", "Empanadas integrales"]
+        ],
+        normal: [
+          ["Té con pan integral", "Pollo con arroz", "Sopa de verduras"],
+          ["Yogur y frutas", "Ensalada completa", "Tortilla de espinaca"],
+          ["Pan con palta", "Lentejas cocidas", "Fideos con tomate"],
+          ["Smoothie natural", "Wrap con vegetales", "Pizza horneada"],
+          ["Avena cocida", "Guiso de papas", "Empanadas vegetarianas"],
+          ["Batido de avena", "Sopa de porotos", "Arroz con pollo"],
+          ["Frutas picadas", "Chapsui de pollo", "Tallarines integrales"]
+        ]
       }
     };
 
-    function mostrarPlan() {
-      const tipoIMC = imc < 18.5 ? "bajo" : imc < 25 ? "normal" : "sobrepeso";
-      const tipo = planes[tipoIMC]?.[cuerpo]?.general;
-
-      if (!tipo) {
-        document.getElementById("plan").innerHTML = "<p>No hay plan disponible para tu perfil.</p>";
-        return;
+    // Validar datos y mostrar plan o mensaje de error
+    if (!planes[deporte]) {
+      contenido.innerHTML = `<p>No hay un plan definido para el deporte "<strong>${deporte}</strong>".</p>`;
+    } else if (!planes[deporte][imc]) {
+      contenido.innerHTML = `<p>No hay un plan definido para tu categoría de IMC "<strong>${imc}</strong>".</p>`;
+    } else {
+      const plan = planes[deporte][imc];
+      let html = `<div class="plan"><h2>Plan para ${deporte.toUpperCase()} - Categoría: ${imc}</h2>`;
+      for (let i = 0; i < plan.length; i++) {
+        html += `<h3>Día ${i + 1}</h3><ul>
+          <li><strong>Desayuno:</strong> ${plan[i][0]}</li>
+          <li><strong>Almuerzo:</strong> ${plan[i][1]}</li>
+          <li><strong>Cena:</strong> ${plan[i][2]}</li>
+        </ul>`;
       }
-
-      let html = "";
-      for (let i = 0; i < tipo.length; i++) {
-        html += `<div class="dia"><h2>Día ${i + 1}</h2>`;
-        html += `<p class="comida"><strong>Desayuno:</strong> ${tipo[i][0]}</p>`;
-        html += `<p class="comida"><strong>Almuerzo:</strong> ${tipo[i][1]}</p>`;
-        html += `<p class="comida"><strong>Cena:</strong> ${tipo[i][2]}</p></div>`;
-      }
-      document.getElementById("plan").innerHTML = html;
+      html += "</div>";
+      contenido.innerHTML = html;
     }
-
-    mostrarPlan();
   </script>
 </body>
 </html>
