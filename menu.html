@@ -2,64 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Menú Principal</title>
+  <title>MiFitApp - Menú Principal</title>
   <link rel="icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       background-color: #121212;
-      color: white;
+      color: #eee;
       font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 600px;
-      margin: auto;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      gap: 20px;
+    }
+    h1 {
+      margin-bottom: 30px;
     }
     button {
-      margin: 15px 10px;
-      padding: 15px 30px;
-      font-size: 18px;
-      border-radius: 15px;
+      width: 220px;
+      padding: 15px;
+      font-size: 1.1rem;
+      border-radius: 12px;
       border: none;
-      background-color: #1f1f1f;
-      color: white;
+      background-color: #00ffcc;
+      color: #121212;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #333;
-    }
-    .resultado {
-      margin-bottom: 30px;
-      font-size: 20px;
+      background-color: #00ccb3;
     }
   </style>
 </head>
 <body>
-  <h1>Hola, <span id="nombreUser"></span></h1>
-  <div class="resultado" id="resultadoImc"></div>
-  <div><strong>Deporte:</strong> <span id="deporteUser"></span></div>
-  <div><strong>Disciplina:</strong> <span id="disciplinaUser"></span></div>
-
-  <button onclick="location.href='alimentacion.html'">Plan de Alimentación</button>
-  <button onclick="location.href='entrenamiento.html'">Plan de Entrenamiento</button>
-  <button onclick="location.href='deporte.html'">Cambiar Deporte/Disciplina</button>
-
-  <script>
-    const nombre = localStorage.getItem("nombre");
-    const imc = parseFloat(localStorage.getItem("imc"));
-    const deporte = localStorage.getItem("deporte");
-    const disciplina = localStorage.getItem("disciplina");
-    document.getElementById("nombreUser").textContent = nombre || "Usuario";
-    document.getElementById("deporteUser").textContent = deporte ? deporte.toUpperCase() : "No seleccionado";
-    document.getElementById("disciplinaUser").textContent = disciplina ? disciplina.charAt(0).toUpperCase() + disciplina.slice(1) : "No seleccionada";
-
-    function mensajeImc(imc) {
-      if (imc < 18.5) return "Bajo peso: Te recomendamos aumentar tu ingesta calórica con alimentos nutritivos.";
-      if (imc < 25) return "Peso normal: Mantén tu estilo de vida saludable.";
-      return "Sobrepeso: Es recomendable controlar tu alimentación y realizar actividad física regularmente.";
-    }
-
-    document.getElementById("resultadoImc").textContent = `Tu IMC es ${imc.toFixed(2)} (${mensajeImc(imc)})`;
-  </script>
+  <h1>Menú Principal</h1>
+  <button onclick="window.location.href='datosFisicos.html'">Ingresar Datos Físicos</button>
+  <button onclick="window.location.href='deporte.html'">Seleccionar Deporte</button>
+  <button onclick="window.location.href='alimentacion.html'">Ver Plan de Alimentación</button>
+  <button onclick="window.location.href='entrenamiento.html'">Ver Plan de Entrenamiento</button>
 </body>
 </html>
