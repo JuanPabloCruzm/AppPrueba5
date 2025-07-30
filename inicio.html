@@ -1,55 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>MiFitApp - Inicio</title>
-  <link rel="icon" href="favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <title>Bienvenido a MiFitApp</title>
+  <link rel="icon" href="favicon.ico">
   <style>
     body {
       background-color: #121212;
-      color: #fff;
+      color: white;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0; padding: 20px;
-    }
-    input, select, button {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
-      width: 250px;
+      text-align: center;
+      padding: 50px;
     }
     button {
-      background-color: #1f1f1f;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #333;
       color: white;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>MiFitApp</h1>
-  <input id="nombre" placeholder="Nombre" />
-  <select id="sexo">
-    <option value="masculino">Masculino</option>
-    <option value="femenino">Femenino</option>
-  </select>
-  <button onclick="guardarDatos()">Siguiente</button>
-
-  <script>
-    function guardarDatos() {
-      const nombre = document.getElementById("nombre").value.trim();
-      const sexo = document.getElementById("sexo").value;
-      if(nombre === "") { alert("Ingrese un nombre."); return; }
-      localStorage.setItem("nombre", nombre);
-      localStorage.setItem("sexo", sexo);
-      window.location.href = "datosFisicos.html";
-    }
-  </script>
+  <h1>Bienvenido a MiFitApp</h1>
+  <p>Tu guía personalizada de salud y fitness</p>
+  <button onclick="window.location.href='nombreSexo.html'">Comenzar</button>
 </body>
 </html>
