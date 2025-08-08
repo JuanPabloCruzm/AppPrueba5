@@ -2,45 +2,141 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>MiFitApp - Menú Principal</title>
+  <title>Menú Principal</title>
   <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       background-color: #121212;
-      color: #eee;
+      color: #fff;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      gap: 20px;
+      padding: 20px;
+      text-align: center;
     }
+
     h1 {
-      margin-bottom: 30px;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
     }
-    button {
-      width: 220px;
+
+    .info-box {
+      background-color: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .info-box p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .boton {
+      display: block;
+      width: 80%;
+      max-width: 400px;
+      margin: 15px auto;
       padding: 15px;
-      font-size: 1.1rem;
-      border-radius: 12px;
+      font-size: 18px;
+      background-color: #333;
+      color: white;
       border: none;
-      background-color: #00ffcc;
-      color: #121212;
+      border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      text-decoration: none;
     }
-    button:hover {
-      background-color: #00ccb3;
+
+    .boton:hover {
+      background-color: #555;
+    }
+
+    .footer {
+      margin-top: 40px;
+      color: #888;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <h1>Menú Principal</h1>
-  <button onclick="window.location.href='datosFisicos.html'">Ingresar Datos Físicos</button>
-  <button onclick="window.location.href='deporte.html'">Seleccionar Deporte</button>
-  <button onclick="window.location.href='alimentacion.html'">Ver Plan de Alimentación</button>
-  <button onclick="window.location.href='entrenamiento.html'">Ver Plan de Entrenamiento</button>
+  <h1>Tu Perfil Saludable</h1>
+
+  <div class="info-box" id="datosUsuario">
+    <!-- Aquí se mostrarán los datos -->
+  </div>
+
+  <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
+  <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
+  <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación según Condición Médica</a>
+  <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
+
+  <div class="footer">By: Juan Pablo Cruz</div>
+
+  <script>
+    function mostrarDatos() {
+      const nombre = localStorage.getItem("nombre") || "Usuario";
+      const sexo = localStorage.getItem("sexo") || "No especificado";
+      const edad = localStorage.getItem("edad") || "No especificada";
+      const peso = localStorage.getItem("peso") || "No especificado";
+      const altura = localStorage.getItem("altura") || "No especificada";
+      const tipoCuerpo = localStorage.getItem("tipoCuerpo") || "No especificado";
+      const imc = parseFloat(localStorage.getItem("imc")) || 0;
+      const deporte = localStorage.getItem("deporte") || "No seleccionado";
+      const disciplina = localStorage.getItem("disciplina") || "No especificada";
+
+      // Clasificación IMC
+      let clasificacionIMC = "";
+      if (imc === 0) {
+        clasificacionIMC = "No calculado";
+      } else if (imc < 18.5) {
+        clasificacionIMC = "Bajo peso";
+      } else if (imc >= 18.5 && imc <= 24.9) {
+        clasificacionIMC = "Peso normal";
+      } else {
+        clasificacionIMC = "Sobrepeso";
+      }
+
+      // Definiciones tipo de cuerpo
+      let definicionTipoCuerpo = "";
+      switch(tipoCuerpo.toLowerCase()) {
+        case "endomorfo":
+          definicionTipoCuerpo = "Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.";
+          break;
+        case "mesomorfo":
+          definicionTipoCuerpo = "Musculatura natural, cuerpo atlético, responde bien al ejercicio.";
+          break;
+        case "ectomorfo":
+          definicionTipoCuerpo = "Delgado, dificultad para ganar peso y músculo, metabolismo rápido.";
+          break;
+        default:
+          definicionTipoCuerpo = "No especificado.";
+      }
+
+      const box = document.getElementById("datosUsuario");
+      box.innerHTML = `
+        <p><strong>Nombre:</strong> ${nombre}</p>
+        <p><strong>Sexo:</strong> ${sexo}</p>
+        <p><strong>Edad:</strong> ${edad} años</p>
+        <p><strong>Peso:</strong> ${peso} kg</p>
+        <p><strong>Altura:</strong> ${altura} m</p>
+        <p><strong>Tipo de Cuerpo:</strong> ${tipoCuerpo}</p>
+        <p><em>${definicionTipoCuerpo}</em></p>
+        <p><strong>IMC:</strong> ${imc.toFixed(2)} (${clasificacionIMC})</p>
+        <p><strong>Deporte:</strong> ${deporte}</p>
+        <p><strong>Disciplina:</strong> ${disciplina}</p>
+      `;
+    }
+
+    function cerrarSesion() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    window.onload = mostrarDatos;
+  </script>
 </body>
 </html>
