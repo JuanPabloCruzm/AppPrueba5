@@ -4,37 +4,46 @@
   <meta charset="UTF-8">
   <title>Datos Físicos</title>
   <link rel="icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #121212;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: #eeeeee;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       text-align: center;
       padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     h1 {
       font-size: 28px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     label {
       font-size: 18px;
       display: block;
       margin: 15px 0 5px;
+      text-align: left;
+      max-width: 320px;
     }
 
     input {
-      padding: 10px;
-      width: 80%;
-      max-width: 300px;
-      border: none;
-      border-radius: 8px;
-      background-color: #1e1e1e;
+      padding: 12px;
+      width: 100%;
+      max-width: 320px;
+      border: 2px solid #00c853;
+      border-radius: 10px;
+      background-color: rgba(255,255,255,0.1);
       color: #ffffff;
       font-size: 16px;
-      margin-bottom: 10px;
-      text-align: center;
+      margin-bottom: 15px;
+      outline: none;
     }
 
     .tipo-container {
@@ -46,17 +55,24 @@
     }
 
     .tipo {
-      background-color: #1e1e1e;
-      border: 2px solid #444;
+      background-color: rgba(255,255,255,0.05);
+      border: 2px solid #00c853;
       padding: 20px;
       border-radius: 15px;
       width: 250px;
       cursor: pointer;
-      transition: border-color 0.3s ease;
+      transition: 0.3s ease;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .tipo:hover {
+      transform: scale(1.05);
+      background-color: rgba(0,200,83,0.2);
     }
 
     .tipo.selected {
-      border-color: #888;
+      border-color: #00e676;
+      background-color: rgba(0,230,118,0.2);
     }
 
     .tipo p {
@@ -67,33 +83,31 @@
 
     button {
       margin-top: 30px;
-      background-color: #444;
+      background-color: #00c853;
       color: #fff;
-      padding: 12px 24px;
+      padding: 14px 35px;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
+      animation: fadeIn 1.4s ease-in-out;
     }
 
     button:hover {
-      background-color: #666;
+      background-color: #00e676;
+      transform: scale(1.05);
     }
 
     footer {
       margin-top: 40px;
       font-size: 12px;
-      color: #888;
+      color: #ccc;
     }
 
-    .fila {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .fila-uno {
-      margin-bottom: 20px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -112,27 +126,23 @@
 
     <label style="margin-top: 30px;">Selecciona tu tipo de cuerpo:</label>
     <div class="tipo-container">
-      <div class="fila fila-uno">
-        <div class="tipo" data-value="endomorfo">
-          <strong>Endomorfo</strong>
-          <p>Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.</p>
-        </div>
-
-        <div class="tipo" data-value="mesomorfo">
-          <strong>Mesomorfo</strong>
-          <p>Musculatura natural, cuerpo atlético, responde bien al ejercicio.</p>
-        </div>
+      <div class="tipo" data-value="endomorfo">
+        <strong>Endomorfo</strong>
+        <p>Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.</p>
       </div>
 
-      <div class="fila">
-        <div class="tipo" data-value="ectomorfo">
-          <strong>Ectomorfo</strong>
-          <p>Delgado, dificultad para ganar peso y músculo, metabolismo rápido.</p>
-        </div>
+      <div class="tipo" data-value="mesomorfo">
+        <strong>Mesomorfo</strong>
+        <p>Musculatura natural, cuerpo atlético, responde bien al ejercicio.</p>
+      </div>
+
+      <div class="tipo" data-value="ectomorfo">
+        <strong>Ectomorfo</strong>
+        <p>Delgado, dificultad para ganar peso y músculo, metabolismo rápido.</p>
       </div>
     </div>
 
-    <button type="submit">Calcular y continuar</button>
+    <button type="submit">Calcular y continuar ➡</button>
   </form>
 
   <footer>
@@ -144,16 +154,16 @@
     const saludo = document.getElementById('saludo');
     let tipoSeleccionado = "";
 
-    // Mostrar saludo personalizado
     const nombre = localStorage.getItem('nombre') || '';
     const sexo = localStorage.getItem('sexo');
     if (sexo === 'masculino') {
       saludo.textContent = `Hey! Sr. ${nombre}`;
     } else if (sexo === 'femenino') {
       saludo.textContent = `Hey! Srta. ${nombre}`;
+    } else {
+      saludo.textContent = `Hey! ${nombre}`;
     }
 
-    // Seleccionar tipo de cuerpo al hacer clic
     document.querySelectorAll('.tipo').forEach(el => {
       el.addEventListener('click', () => {
         document.querySelectorAll('.tipo').forEach(t => t.classList.remove('selected'));
@@ -162,7 +172,6 @@
       });
     });
 
-    // Enviar formulario
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
