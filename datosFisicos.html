@@ -1,131 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Datos Físicos - MiFitApp</title>
+  <meta charset="UTF-8">
+  <title>Datos Físicos</title>
   <link rel="icon" href="favicon.ico" />
   <style>
     body {
       background-color: #121212;
-      color: #eee;
-      font-family: Arial, sans-serif;
-      max-width: 400px;
-      margin: auto;
+      color: #eeeeee;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
       padding: 20px;
     }
+
     h1 {
-      text-align: center;
+      font-size: 28px;
       margin-bottom: 10px;
     }
-    #saludo {
-      text-align: center;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
-      color: #00ffcc;
-    }
+
     label {
+      font-size: 18px;
       display: block;
-      margin: 12px 0 5px;
+      margin: 15px 0 5px;
     }
-    input, select {
-      width: 100%;
+
+    input {
       padding: 10px;
-      border-radius: 8px;
+      width: 80%;
+      max-width: 300px;
       border: none;
+      border-radius: 8px;
+      background-color: #1e1e1e;
+      color: #ffffff;
       font-size: 16px;
+      margin-bottom: 10px;
+      text-align: center;
     }
+
+    .tipo-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .tipo {
+      background-color: #1e1e1e;
+      border: 2px solid #444;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .tipo.selected {
+      border-color: #888;
+    }
+
+    .tipo p {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 10px;
+    }
+
     button {
-      margin-top: 25px;
-      width: 100%;
-      padding: 15px;
-      background-color: #00ffcc;
-      color: #121212;
+      margin-top: 30px;
+      background-color: #444;
+      color: #fff;
+      padding: 12px 24px;
       border: none;
       border-radius: 10px;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
     }
+
     button:hover {
-      background-color: #00ccb3;
+      background-color: #666;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #888;
+    }
+
+    .fila {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .fila-uno {
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Datos Físicos</h1>
-  <div id="saludo"></div>
+  <h1 id="saludo">Hey! 👋</h1>
 
-  <form id="formDatosFisicos">
-    <label for="edad">Edad (años):</label>
-    <input type="number" id="edad" min="1" max="120" required />
+  <form id="datosForm">
+    <label for="edad">Edad (ej: 25 años):</label>
+    <input type="number" id="edad" name="edad" required placeholder="Ej: 25">
 
-    <label for="peso">Peso (kg):</label>
-    <input type="number" id="peso" min="1" max="500" step="0.1" required />
+    <label for="peso">Peso en kilogramos (ej: 70):</label>
+    <input type="number" id="peso" name="peso" required placeholder="Ej: 70">
 
-    <label for="altura">Altura (cm):</label>
-    <input type="number" id="altura" min="30" max="300" step="0.1" required />
+    <label for="altura">Altura en metros (ej: 1.75):</label>
+    <input type="number" step="0.01" id="altura" name="altura" required placeholder="Ej: 1.75">
 
-    <label for="tipoCuerpo">Tipo de cuerpo:</label>
-    <select id="tipoCuerpo" required>
-      <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
-      <option value="endomorfo">Endomorfo</option>
-      <option value="mesomorfo">Mesomorfo</option>
-      <option value="ectomorfo">Ectomorfo</option>
-    </select>
+    <label style="margin-top: 30px;">Selecciona tu tipo de cuerpo:</label>
+    <div class="tipo-container">
+      <div class="fila fila-uno">
+        <div class="tipo" data-value="endomorfo">
+          <strong>Endomorfo</strong>
+          <p>Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.</p>
+        </div>
 
-    <button type="submit">Calcular IMC y Continuar</button>
+        <div class="tipo" data-value="mesomorfo">
+          <strong>Mesomorfo</strong>
+          <p>Musculatura natural, cuerpo atlético, responde bien al ejercicio.</p>
+        </div>
+      </div>
+
+      <div class="fila">
+        <div class="tipo" data-value="ectomorfo">
+          <strong>Ectomorfo</strong>
+          <p>Delgado, dificultad para ganar peso y músculo, metabolismo rápido.</p>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">Calcular y continuar</button>
   </form>
 
-  <script>
-    // Al cargar, muestra saludo con Sr. / Srta. según sexo y nombre
-    window.addEventListener('load', () => {
-      const sexo = localStorage.getItem('sexo');
-      const nombre = localStorage.getItem('nombre');
-      const saludoDiv = document.getElementById('saludo');
+  <footer>
+    By: Juan Pablo Cruz Momberg
+  </footer>
 
-      if(sexo && nombre){
-        const prefijo = sexo === 'masculino' ? 'Sr.' : 'Srta.';
-        saludoDiv.textContent = `Hola ${prefijo} ${nombre}, por favor ingresa tus datos físicos.`;
-      } else {
-        saludoDiv.textContent = 'Por favor completa tu sexo y nombre en la página anterior.';
-      }
+  <script>
+    const form = document.getElementById('datosForm');
+    const saludo = document.getElementById('saludo');
+    let tipoSeleccionado = "";
+
+    // Mostrar saludo personalizado
+    const nombre = localStorage.getItem('nombre') || '';
+    const sexo = localStorage.getItem('sexo');
+    if (sexo === 'masculino') {
+      saludo.textContent = `Hey! Sr. ${nombre}`;
+    } else if (sexo === 'femenino') {
+      saludo.textContent = `Hey! Srta. ${nombre}`;
+    }
+
+    // Seleccionar tipo de cuerpo al hacer clic
+    document.querySelectorAll('.tipo').forEach(el => {
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.tipo').forEach(t => t.classList.remove('selected'));
+        el.classList.add('selected');
+        tipoSeleccionado = el.dataset.value;
+      });
     });
 
-    document.getElementById('formDatosFisicos').addEventListener('submit', function(event){
-      event.preventDefault();
+    // Enviar formulario
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
 
-      const edad = parseInt(document.getElementById('edad').value);
+      const edad = document.getElementById('edad').value;
       const peso = parseFloat(document.getElementById('peso').value);
-      const alturaCm = parseFloat(document.getElementById('altura').value);
-      const tipoCuerpo = document.getElementById('tipoCuerpo').value;
+      const altura = parseFloat(document.getElementById('altura').value);
 
-      if(isNaN(edad) || isNaN(peso) || isNaN(alturaCm) || !tipoCuerpo){
-        alert('Por favor completa todos los campos correctamente.');
+      if (!tipoSeleccionado) {
+        alert("Selecciona tu tipo de cuerpo.");
         return;
       }
 
-      // Calcular IMC
-      const alturaM = alturaCm / 100;
-      const imc = peso / (alturaM * alturaM);
+      const imc = peso / (altura * altura);
 
-      // Guardar en localStorage
       localStorage.setItem('edad', edad);
       localStorage.setItem('peso', peso);
-      localStorage.setItem('altura', alturaCm);
-      localStorage.setItem('tipoCuerpo', tipoCuerpo);
+      localStorage.setItem('altura', altura);
+      localStorage.setItem('tipoCuerpo', tipoSeleccionado);
       localStorage.setItem('imc', imc.toFixed(2));
 
-      // Guardar categoría IMC
-      let categoria = '';
-      if(imc < 18.5) categoria = 'bajo';
-      else if(imc >= 18.5 && imc <= 24.9) categoria = 'normal';
-      else categoria = 'sobrepeso';
-
-      localStorage.setItem('imcCategoria', categoria);
-
-      // Redirigir a selección de deporte
-      window.location.href = 'deporte.html';
+      window.location.href = "deporte.html";
     });
   </script>
 </body>
