@@ -1,56 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Bienvenido a tu Sports.Assistant</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi FitApp - Bienvenida</title>
+  <link rel="icon" href="favicon.ico" />
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
+      background: linear-gradient(135deg, #121212, #1e1e1e);
       color: #ffffff;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
+      margin: 0;
+      text-align: center;
     }
     h1 {
       font-size: 2.5em;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    p {
+      font-size: 1.1em;
+      color: #b3b3b3;
       margin-bottom: 40px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease-in-out;
     }
     button {
-      padding: 15px 30px;
+      background-color: #00c853;
+      color: white;
+      padding: 12px 30px;
       font-size: 1.2em;
-      background-color: #1f1f1f;
-      color: #fff;
-      border: 2px solid #fff;
-      border-radius: 12px;
+      border: none;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: 0.3s;
+      animation: fadeIn 2s ease-in-out;
     }
     button:hover {
-      background-color: #333;
+      background-color: #00e676;
+      transform: scale(1.05);
     }
-    .footer {
+    .branding {
       position: absolute;
-      bottom: 20px;
+      bottom: 15px;
       font-size: 0.9em;
-      color: #aaa;
+      color: #888;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-
-  <h1>Bienvenido/a A Sports.Assistant</h1>
-
-  <a href="nombreSexo.html">
-    <button>Comenzar</button>
-  </a>
-
-  <div class="footer">By: Juan Pablo Cruz</div>
-
+  <img src="favicon.ico" alt="Logo" class="logo">
+  <h1>Bienvenido a Mi FitApp</h1>
+  <p>Tu compañero para estar en forma, paso a paso 💪</p>
+  <button onclick="location.href='nombreSexo.html'">Comenzar</button>
+  <div class="branding">By: Juan Pablo Cruz</div>
 </body>
 </html>
