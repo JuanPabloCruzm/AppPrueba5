@@ -2,42 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>MiFitApp - Bienvenida</title>
-  <link rel="icon" href="favicon.ico" />
+  <title>Bienvenido a tu Sports.Assistant</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background-color: #121212;
-      color: #eee;
+      color: #ffffff;
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
-      text-align: center;
     }
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.5em;
+      margin-bottom: 40px;
     }
     button {
-      background-color: #00ffcc;
-      border: none;
       padding: 15px 30px;
-      font-size: 1.2rem;
-      color: #121212;
-      border-radius: 10px;
+      font-size: 1.2em;
+      background-color: #1f1f1f;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #00ccb3;
+      background-color: #333;
+    }
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9em;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <h1>Bienvenido a MiFitApp</h1>
-  <button onclick="window.location.href='sexo_nombre.html'">Comenzar</button>
+
+  <h1>Bienvenido/a A Sports.Assistant</h1>
+
+  <a href="nombreSexo.html">
+    <button>Comenzar</button>
+  </a>
+
+  <div class="footer">By: Juan Pablo Cruz</div>
+
 </body>
 </html>
