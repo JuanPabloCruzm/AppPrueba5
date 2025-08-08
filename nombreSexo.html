@@ -2,55 +2,75 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tu nombre y sexo</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
-      background-color: #121212;
+      background: linear-gradient(135deg, #121212, #1e1e1e);
       color: #ffffff;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+      padding: 20px;
+      text-align: center;
     }
     h2 {
       margin-bottom: 20px;
+      font-size: 1.8em;
+      animation: fadeIn 1s ease-in-out;
     }
     input, select {
       padding: 12px;
       font-size: 1em;
       margin: 10px 0;
-      width: 250px;
+      width: 260px;
       border-radius: 8px;
       border: none;
+      outline: none;
+      background-color: #1f1f1f;
+      color: white;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    select option {
+      background-color: #1f1f1f;
+      color: white;
     }
     button {
-      padding: 12px 24px;
+      padding: 12px 30px;
       font-size: 1.1em;
-      background-color: #1f1f1f;
+      background-color: #00c853;
       color: #fff;
-      border: 2px solid #fff;
-      border-radius: 10px;
+      border: none;
+      border-radius: 30px;
       cursor: pointer;
       margin-top: 20px;
+      transition: 0.3s;
+      animation: fadeIn 1.4s ease-in-out;
     }
     button:hover {
-      background-color: #333;
+      background-color: #00e676;
+      transform: scale(1.05);
     }
     .footer {
       position: absolute;
-      bottom: 20px;
+      bottom: 15px;
       font-size: 0.9em;
       color: #aaa;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <h2>¿Hey tu! cuentame, cual es tu nombre y sexo?</h2>
+  <h2>👋 ¡Hey chico! Cuéntame, ¿cómo te llamas y cuál es tu sexo?</h2>
 
   <input type="text" id="nombre" placeholder="Ingresa tu nombre" required />
 
@@ -60,7 +80,7 @@
     <option value="femenino">Femenino</option>
   </select>
 
-  <button onclick="guardarNombreSexo()">Siguiente</button>
+  <button onclick="guardarNombreSexo()">Siguiente ➡</button>
 
   <div class="footer">By: Juan Pablo Cruz</div>
 
