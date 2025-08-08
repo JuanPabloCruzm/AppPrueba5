@@ -2,71 +2,96 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Menú Principal</title>
-  <link rel="icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menú Principal</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
-      background-color: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 20px;
+      background: linear-gradient(135deg, #121212, #1e1e1e);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      padding: 30px 20px;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
       text-align: center;
     }
 
     h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-      color: #fff;
+      font-size: 2.2em;
+      margin-bottom: 25px;
+      animation: fadeIn 1s ease-in-out;
     }
 
     .info-box {
       background-color: #1f1f1f;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px auto;
+      border-radius: 15px;
+      padding: 25px;
       max-width: 600px;
+      width: 100%;
+      margin-bottom: 30px;
       text-align: left;
+      box-shadow: 0 0 10px rgba(0,200,83,0.3);
+      animation: fadeIn 1.1s ease-in-out;
     }
 
     .info-box p {
-      font-size: 18px;
-      margin: 10px 0;
+      font-size: 1.05em;
+      margin: 12px 0;
+      line-height: 1.4;
+    }
+
+    .info-box em {
+      color: #a3d9a5;
     }
 
     .boton {
       display: block;
-      width: 80%;
-      max-width: 400px;
-      margin: 15px auto;
-      padding: 15px;
-      font-size: 18px;
-      background-color: #333;
+      width: 280px;
+      margin: 12px auto;
+      padding: 14px 0;
+      font-size: 1.15em;
+      font-weight: 600;
+      background-color: #00c853;
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
       text-decoration: none;
+      animation: fadeIn 1.3s ease-in-out;
+      box-shadow: 0 4px 10px rgba(0,200,83,0.5);
     }
 
     .boton:hover {
-      background-color: #555;
+      background-color: #00e676;
+      transform: scale(1.05);
+      box-shadow: 0 6px 14px rgba(0,230,118,0.7);
     }
 
     .footer {
-      margin-top: 40px;
+      margin-top: auto;
+      font-size: 0.9em;
       color: #888;
-      font-size: 14px;
+      padding: 20px 0 10px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+
   <h1>Tu Perfil Saludable</h1>
 
   <div class="info-box" id="datosUsuario">
-    <!-- Aquí se mostrarán los datos -->
+    <!-- Datos cargados por JS -->
   </div>
 
   <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
@@ -88,7 +113,6 @@
       const deporte = localStorage.getItem("deporte") || "No seleccionado";
       const disciplina = localStorage.getItem("disciplina") || "No especificada";
 
-      // Clasificación IMC
       let clasificacionIMC = "";
       if (imc === 0) {
         clasificacionIMC = "No calculado";
@@ -100,7 +124,6 @@
         clasificacionIMC = "Sobrepeso";
       }
 
-      // Definiciones tipo de cuerpo
       let definicionTipoCuerpo = "";
       switch(tipoCuerpo.toLowerCase()) {
         case "endomorfo":
@@ -116,8 +139,7 @@
           definicionTipoCuerpo = "No especificado.";
       }
 
-      const box = document.getElementById("datosUsuario");
-      box.innerHTML = `
+      document.getElementById("datosUsuario").innerHTML = `
         <p><strong>Nombre:</strong> ${nombre}</p>
         <p><strong>Sexo:</strong> ${sexo}</p>
         <p><strong>Edad:</strong> ${edad} años</p>
@@ -138,5 +160,6 @@
 
     window.onload = mostrarDatos;
   </script>
+
 </body>
 </html>
