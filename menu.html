@@ -3,127 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Menú Principal - VIP Fit</title>
+  <title>Menú Principal</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg-main: #0d0d0d;
+      --bg-card: #1a1a1a;
+      --accent: #d4af37; /* Dorado elegante */
+      --text-main: #ffffff;
+      --text-secondary: #c0c0c0;
+    }
+
     body {
-      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Poppins', sans-serif;
+      padding: 30px 20px;
       margin: 0;
-      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      text-align: center;
     }
 
-    header {
-      width: 100%;
-      padding: 25px 20px;
-      text-align: center;
-      background: linear-gradient(90deg, #c7a840, #ffda77);
-      color: #0d0d0d;
-      font-weight: 700;
-      font-size: 1.8em;
+    h1 {
+      font-size: 2.4em;
+      font-weight: 600;
+      margin-bottom: 25px;
       letter-spacing: 1px;
-      box-shadow: 0 4px 15px rgba(199, 168, 64, 0.4);
     }
 
     .info-box {
-      background-color: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      padding: 20px;
+      background-color: var(--bg-card);
+      border-radius: 20px;
+      padding: 25px;
       max-width: 600px;
-      width: 90%;
-      margin: 25px 0;
+      width: 100%;
+      margin-bottom: 40px;
       text-align: left;
-      border: 1px solid rgba(199, 168, 64, 0.3);
-      box-shadow: 0 0 15px rgba(199, 168, 64, 0.2);
+      box-shadow: 0 0 25px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 215, 0, 0.15);
     }
 
     .info-box p {
-      font-size: 1em;
-      margin: 8px 0;
+      font-size: 1.05em;
+      margin: 10px 0;
       line-height: 1.5;
     }
 
     .info-box em {
-      display: block;
-      margin-top: 5px;
-      padding: 8px;
-      border-left: 3px solid #c7a840;
-      color: #ffecb3;
+      color: var(--accent);
       font-style: normal;
-      background-color: rgba(199, 168, 64, 0.08);
-      border-radius: 4px;
-    }
-
-    .menu {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 30px;
     }
 
     .boton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 280px;
-      padding: 14px 0;
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 15px auto;
+      padding: 15px 0;
       font-size: 1.1em;
-      font-weight: 700;
-      background: linear-gradient(90deg, #c7a840, #ffda77);
-      color: #0d0d0d;
-      border: none;
+      font-weight: 600;
+      background: transparent;
+      color: var(--text-main);
+      border: 2px solid var(--accent);
       border-radius: 50px;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(199, 168, 64, 0.4);
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
     }
 
     .boton:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(255, 218, 119, 0.6);
+      background: var(--accent);
+      color: var(--bg-main);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212,175,55,0.25);
     }
 
     .footer {
       margin-top: auto;
       font-size: 0.85em;
-      color: #aaa;
-      padding: 20px 0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      color: var(--text-secondary);
+      padding: 20px 0 10px;
     }
   </style>
 </head>
 <body>
 
-  <header>🏆 VIP FIT JOURNEY</header>
+  <h1>🏆 Tu Perfil Deportivo VIP</h1>
 
-  <div class="info-box" id="datosUsuario">
-    <!-- Datos cargados por JS -->
-  </div>
+  <div class="info-box" id="datosUsuario"></div>
 
-  <div class="menu">
-    <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
-    <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
-    <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación Médica</a>
-    <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
-  </div>
+  <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
+  <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
+  <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación Médica</a>
+  <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
 
   <div class="footer">By: Juan Pablo Cruz</div>
 
   <script>
     function mostrarDatos() {
-      const nombre = localStorage.getItem("nombre") || "Atleta";
+      const nombre = localStorage.getItem("nombre") || "Usuario";
       const sexo = localStorage.getItem("sexo") || "No especificado";
       const edad = localStorage.getItem("edad") || "No especificada";
       const peso = localStorage.getItem("peso") || "No especificado";
@@ -138,7 +121,7 @@
         clasificacionIMC = "No calculado";
       } else if (imc < 18.5) {
         clasificacionIMC = "Bajo peso";
-      } else if (imc <= 24.9) {
+      } else if (imc >= 18.5 && imc <= 24.9) {
         clasificacionIMC = "Peso normal";
       } else {
         clasificacionIMC = "Sobrepeso";
@@ -147,13 +130,13 @@
       let definicionTipoCuerpo = "";
       switch(tipoCuerpo.toLowerCase()) {
         case "endomorfo":
-          definicionTipoCuerpo = "Gana grasa fácilmente, metabolismo más lento.";
+          definicionTipoCuerpo = "Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.";
           break;
         case "mesomorfo":
-          definicionTipoCuerpo = "Cuerpo atlético, responde bien al ejercicio.";
+          definicionTipoCuerpo = "Musculatura natural, cuerpo atlético, responde bien al ejercicio.";
           break;
         case "ectomorfo":
-          definicionTipoCuerpo = "Delgado, metabolismo rápido.";
+          definicionTipoCuerpo = "Delgado, dificultad para ganar peso y músculo, metabolismo rápido.";
           break;
         default:
           definicionTipoCuerpo = "No especificado.";
@@ -166,7 +149,7 @@
         <p><strong>Peso:</strong> ${peso} kg</p>
         <p><strong>Altura:</strong> ${altura} m</p>
         <p><strong>Tipo de Cuerpo:</strong> ${tipoCuerpo}</p>
-        <em>${definicionTipoCuerpo}</em>
+        <p><em>${definicionTipoCuerpo}</em></p>
         <p><strong>IMC:</strong> ${imc.toFixed(2)} (${clasificacionIMC})</p>
         <p><strong>Deporte:</strong> ${deporte}</p>
         <p><strong>Disciplina:</strong> ${disciplina}</p>
