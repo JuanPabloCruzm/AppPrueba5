@@ -3,43 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Menú Principal</title>
+  <title>Menú Principal - VIP Fit</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: linear-gradient(135deg, #121212, #1e1e1e);
-      color: #ffffff;
-      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
     }
 
-    h1 {
-      font-size: 2.4em;
-      margin: 15px 0 25px;
-      animation: fadeIn 1s ease-in-out;
-      text-shadow: 0 0 10px rgba(0, 200, 83, 0.4);
+    header {
+      width: 100%;
+      padding: 25px 20px;
+      text-align: center;
+      background: linear-gradient(90deg, #c7a840, #ffda77);
+      color: #0d0d0d;
+      font-weight: 700;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(199, 168, 64, 0.4);
     }
 
     .info-box {
-      background-color: #1f1f1f;
+      background-color: rgba(255,255,255,0.05);
       border-radius: 15px;
       padding: 20px;
       max-width: 600px;
-      width: 100%;
-      margin-bottom: 30px;
+      width: 90%;
+      margin: 25px 0;
       text-align: left;
-      box-shadow: 0 0 15px rgba(0,200,83,0.3);
-      animation: fadeIn 1.1s ease-in-out;
+      border: 1px solid rgba(199, 168, 64, 0.3);
+      box-shadow: 0 0 15px rgba(199, 168, 64, 0.2);
     }
 
     .info-box p {
-      font-size: 1.05em;
+      font-size: 1em;
       margin: 8px 0;
       line-height: 1.5;
     }
@@ -48,45 +53,49 @@
       display: block;
       margin-top: 5px;
       padding: 8px;
-      border-left: 3px solid #00c853;
-      color: #a3d9a5;
+      border-left: 3px solid #c7a840;
+      color: #ffecb3;
       font-style: normal;
-      background-color: rgba(0, 200, 83, 0.05);
+      background-color: rgba(199, 168, 64, 0.08);
       border-radius: 4px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
     }
 
     .boton {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       width: 280px;
-      margin: 12px auto;
       padding: 14px 0;
       font-size: 1.1em;
-      font-weight: 600;
-      background: linear-gradient(90deg, #00c853, #00e676);
-      color: white;
+      font-weight: 700;
+      background: linear-gradient(90deg, #c7a840, #ffda77);
+      color: #0d0d0d;
       border: none;
-      border-radius: 30px;
+      border-radius: 50px;
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
-      animation: fadeIn 1.3s ease-in-out;
-      box-shadow: 0 4px 15px rgba(0,200,83,0.5);
+      box-shadow: 0 4px 15px rgba(199, 168, 64, 0.4);
     }
 
     .boton:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 18px rgba(0,230,118,0.7);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 218, 119, 0.6);
     }
 
     .footer {
       margin-top: auto;
-      font-size: 0.9em;
-      color: #888;
-      padding: 20px 0 10px;
-      animation: fadeIn 1.5s ease-in-out;
+      font-size: 0.85em;
+      color: #aaa;
+      padding: 20px 0;
     }
 
     @keyframes fadeIn {
@@ -97,22 +106,24 @@
 </head>
 <body>
 
-  <h1>🏋️ Tu Perfil Saludable</h1>
+  <header>🏆 VIP FIT JOURNEY</header>
 
   <div class="info-box" id="datosUsuario">
     <!-- Datos cargados por JS -->
   </div>
 
-  <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
-  <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
-  <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación Médica</a>
-  <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
+  <div class="menu">
+    <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
+    <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
+    <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación Médica</a>
+    <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
+  </div>
 
   <div class="footer">By: Juan Pablo Cruz</div>
 
   <script>
     function mostrarDatos() {
-      const nombre = localStorage.getItem("nombre") || "Usuario";
+      const nombre = localStorage.getItem("nombre") || "Atleta";
       const sexo = localStorage.getItem("sexo") || "No especificado";
       const edad = localStorage.getItem("edad") || "No especificada";
       const peso = localStorage.getItem("peso") || "No especificado";
@@ -136,13 +147,13 @@
       let definicionTipoCuerpo = "";
       switch(tipoCuerpo.toLowerCase()) {
         case "endomorfo":
-          definicionTipoCuerpo = "Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.";
+          definicionTipoCuerpo = "Gana grasa fácilmente, metabolismo más lento.";
           break;
         case "mesomorfo":
-          definicionTipoCuerpo = "Musculatura natural, cuerpo atlético, responde bien al ejercicio.";
+          definicionTipoCuerpo = "Cuerpo atlético, responde bien al ejercicio.";
           break;
         case "ectomorfo":
-          definicionTipoCuerpo = "Delgado, dificultad para ganar peso y músculo, metabolismo rápido.";
+          definicionTipoCuerpo = "Delgado, metabolismo rápido.";
           break;
         default:
           definicionTipoCuerpo = "No especificado.";
