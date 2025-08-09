@@ -2,188 +2,145 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Datos Físicos</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(135deg, #121212, #1e1e1e);
-      color: #ffffff;
+      color: #fff;
       font-family: 'Poppins', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
+      max-width: 400px;
+      margin: 40px auto;
       padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #000;
       text-align: center;
     }
     h2 {
-      margin-top: 30px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       font-size: 1.8em;
       animation: fadeIn 1s ease-in-out;
     }
     label {
       display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-size: 1em;
       text-align: left;
-      width: 260px;
-      animation: fadeIn 1.1s ease-in-out;
-    }
-    input {
-      padding: 12px;
+      margin-top: 15px;
+      font-weight: 600;
       font-size: 1em;
-      margin-bottom: 10px;
-      width: 260px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      font-size: 1em;
       border-radius: 8px;
       border: none;
-      outline: none;
       background-color: #1f1f1f;
       color: white;
-      animation: fadeIn 1.2s ease-in-out;
-      text-align: center;
+      outline: none;
     }
-    .tipo-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-      animation: fadeIn 1.3s ease-in-out;
-    }
-    .tipo {
+    select option {
       background-color: #1f1f1f;
-      border-radius: 10px;
-      padding: 15px;
-      width: 240px;
-      cursor: pointer;
-      transition: 0.3s;
-      border: 2px solid transparent;
-    }
-    .tipo:hover {
-      background-color: #2a2a2a;
-      transform: scale(1.03);
-    }
-    .tipo.selected {
-      border-color: #00c853;
-      background-color: #2a2a2a;
-    }
-    .tipo strong {
-      font-size: 1.1em;
-    }
-    .tipo p {
-      font-size: 0.9em;
-      color: #ccc;
-      margin-top: 8px;
+      color: white;
     }
     button {
-      padding: 12px 30px;
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
       font-size: 1.1em;
+      font-weight: bold;
       background-color: #00c853;
-      color: #fff;
       border: none;
       border-radius: 30px;
+      color: white;
       cursor: pointer;
-      margin-top: 25px;
-      transition: 0.3s;
-      animation: fadeIn 1.4s ease-in-out;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #00e676;
-      transform: scale(1.05);
+    }
+    .saludo {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
     .footer {
-      margin-top: auto;
-      padding: 15px;
+      margin-top: 40px;
       font-size: 0.9em;
       color: #aaa;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <h2 id="saludo">👋 ¡Hey! Cuéntame tus datos físicos</h2>
+  <div class="saludo" id="saludo">Hola!</div>
 
-  <form id="datosForm">
-    <label for="edad">Edad</label>
-    <input type="number" id="edad" name="edad" placeholder="Ej: 25" required>
+  <label for="edad">Edad (años)</label>
+  <input type="number" id="edad" min="1" max="120" placeholder="Ej: 30" required />
 
-    <label for="peso">Peso (kg)</label>
-    <input type="number" id="peso" name="peso" placeholder="Ej: 70" required>
+  <label for="peso">Peso (kg)</label>
+  <input type="number" id="peso" min="1" max="500" step="0.1" placeholder="Ej: 70.5" required />
 
-    <label for="altura">Altura (m)</label>
-    <input type="number" step="0.01" id="altura" name="altura" placeholder="Ej: 1.75" required>
+  <label for="altura">Altura (metros)</label>
+  <input type="number" id="altura" min="0.5" max="2.5" step="0.01" placeholder="Ej: 1.75" required />
 
-    <label style="margin-top:20px;">Tipo de cuerpo</label>
-    <div class="tipo-container">
-      <div class="tipo" data-value="endomorfo">
-        <strong>Endomorfo</strong>
-        <p>Tiende a ganar grasa fácilmente, metabolismo más lento, cuerpo más ancho.</p>
-      </div>
-      <div class="tipo" data-value="mesomorfo">
-        <strong>Mesomorfo</strong>
-        <p>Musculatura natural, cuerpo atlético, responde bien al ejercicio.</p>
-      </div>
-      <div class="tipo" data-value="ectomorfo">
-        <strong>Ectomorfo</strong>
-        <p>Delgado, dificultad para ganar peso y músculo, metabolismo rápido.</p>
-      </div>
-    </div>
+  <label for="tipoCuerpo">Tipo de cuerpo</label>
+  <select id="tipoCuerpo" required>
+    <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
+    <option value="Endomorfo">Endomorfo</option>
+    <option value="Mesomorfo">Mesomorfo</option>
+    <option value="Ectomorfo">Ectomorfo</option>
+  </select>
 
-    <button type="submit">Calcular y continuar ➡</button>
-  </form>
+  <button onclick="guardarDatosFisicos()">Calcular y Continuar ➡</button>
 
   <div class="footer">By: Juan Pablo Cruz</div>
 
   <script>
-    const saludo = document.getElementById('saludo');
-    const nombre = localStorage.getItem('nombre') || '';
-    const sexo = localStorage.getItem('sexo');
-    if (sexo === 'masculino') saludo.textContent = `👋 ¡Hey Sr. ${nombre}! Cuéntame tus datos físicos`;
-    else if (sexo === 'femenino') saludo.textContent = `👋 ¡Hey Srta. ${nombre}! Cuéntame tus datos físicos`;
-    else saludo.textContent = `👋 ¡Hey ${nombre}! Cuéntame tus datos físicos`;
+    // Mostrar saludo personalizado con nombre y sexo
+    window.onload = function() {
+      const nombre = localStorage.getItem('nombre') || 'Usuario';
+      const sexo = localStorage.getItem('sexo') || '';
+      let titulo = '';
 
-    let tipoSeleccionado = "";
+      if(sexo.toLowerCase() === 'masculino') titulo = 'Sr.';
+      else if(sexo.toLowerCase() === 'femenino') titulo = 'Srta.';
+      else titulo = '';
 
-    document.querySelectorAll('.tipo').forEach(el => {
-      el.addEventListener('click', () => {
-        document.querySelectorAll('.tipo').forEach(t => t.classList.remove('selected'));
-        el.classList.add('selected');
-        tipoSeleccionado = el.dataset.value;
-      });
-    });
+      document.getElementById('saludo').textContent = `Hola ${titulo} ${nombre}, ingresa tus datos físicos:`;
 
-    document.getElementById('datosForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+      // Cargar datos previos si existen
+      if(localStorage.getItem('edad')) document.getElementById('edad').value = localStorage.getItem('edad');
+      if(localStorage.getItem('peso')) document.getElementById('peso').value = localStorage.getItem('peso');
+      if(localStorage.getItem('altura')) document.getElementById('altura').value = localStorage.getItem('altura');
+      if(localStorage.getItem('tipoCuerpo')) document.getElementById('tipoCuerpo').value = localStorage.getItem('tipoCuerpo');
+    }
 
+    function guardarDatosFisicos() {
       const edad = document.getElementById('edad').value;
-      const peso = parseFloat(document.getElementById('peso').value);
-      const altura = parseFloat(document.getElementById('altura').value);
+      const peso = document.getElementById('peso').value;
+      const altura = document.getElementById('altura').value;
+      const tipoCuerpo = document.getElementById('tipoCuerpo').value;
 
-      if (!tipoSeleccionado) {
-        alert("Selecciona tu tipo de cuerpo.");
+      if (!edad || !peso || !altura || !tipoCuerpo) {
+        alert('Por favor, completa todos los campos.');
         return;
       }
 
+      // Calcular IMC
       const imc = peso / (altura * altura);
 
       localStorage.setItem('edad', edad);
       localStorage.setItem('peso', peso);
       localStorage.setItem('altura', altura);
-      localStorage.setItem('tipoCuerpo', tipoSeleccionado);
+      localStorage.setItem('tipoCuerpo', tipoCuerpo);
       localStorage.setItem('imc', imc.toFixed(2));
 
-      window.location.href = "deporte.html";
-    });
+      // Redirigir a la siguiente página (ejemplo deporte.html)
+      window.location.href = 'deporte.html';
+    }
   </script>
 
 </body>
