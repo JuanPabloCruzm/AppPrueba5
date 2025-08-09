@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tu nombre y sexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nombre y Sexo</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <style>
     body {
       background: linear-gradient(135deg, #121212, #1e1e1e);
-      color: #ffffff;
+      color: #fff;
       font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
@@ -70,14 +70,14 @@
 </head>
 <body>
 
-  <h2>👋 ¡Hey! Cuéntame, ¿cómo te llamas y cuál es tu sexo?</h2>
+  <h2>👋 ¡Hey chico! Cuéntame, ¿cómo te llamas y cuál es tu sexo?</h2>
 
   <input type="text" id="nombre" placeholder="Ingresa tu nombre" required />
 
   <select id="sexo" required>
     <option value="" disabled selected>Selecciona tu sexo</option>
-    <option value="masculino">Masculino</option>
-    <option value="femenino">Femenino</option>
+    <option value="Masculino">Masculino</option>
+    <option value="Femenino">Femenino</option>
   </select>
 
   <button onclick="guardarNombreSexo()">Siguiente ➡</button>
@@ -85,6 +85,14 @@
   <div class="footer">By: Juan Pablo Cruz</div>
 
   <script>
+    // Cargar datos previos si existen
+    window.onload = function() {
+      const nombreGuardado = localStorage.getItem('nombre');
+      const sexoGuardado = localStorage.getItem('sexo');
+      if(nombreGuardado) document.getElementById('nombre').value = nombreGuardado;
+      if(sexoGuardado) document.getElementById('sexo').value = sexoGuardado;
+    }
+
     function guardarNombreSexo() {
       const nombre = document.getElementById('nombre').value.trim();
       const sexo = document.getElementById('sexo').value;
