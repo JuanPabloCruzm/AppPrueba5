@@ -11,65 +11,74 @@
       background: linear-gradient(135deg, #121212, #1e1e1e);
       color: #ffffff;
       font-family: 'Poppins', sans-serif;
-      padding: 30px 20px;
       margin: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      text-align: center;
     }
 
     h1 {
-      font-size: 2.2em;
-      margin-bottom: 25px;
+      font-size: 2.4em;
+      margin: 15px 0 25px;
       animation: fadeIn 1s ease-in-out;
+      text-shadow: 0 0 10px rgba(0, 200, 83, 0.4);
     }
 
     .info-box {
       background-color: #1f1f1f;
       border-radius: 15px;
-      padding: 25px;
+      padding: 20px;
       max-width: 600px;
       width: 100%;
       margin-bottom: 30px;
       text-align: left;
-      box-shadow: 0 0 10px rgba(0,200,83,0.3);
+      box-shadow: 0 0 15px rgba(0,200,83,0.3);
       animation: fadeIn 1.1s ease-in-out;
     }
 
     .info-box p {
       font-size: 1.05em;
-      margin: 12px 0;
-      line-height: 1.4;
+      margin: 8px 0;
+      line-height: 1.5;
     }
 
     .info-box em {
+      display: block;
+      margin-top: 5px;
+      padding: 8px;
+      border-left: 3px solid #00c853;
       color: #a3d9a5;
+      font-style: normal;
+      background-color: rgba(0, 200, 83, 0.05);
+      border-radius: 4px;
     }
 
     .boton {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       width: 280px;
       margin: 12px auto;
       padding: 14px 0;
-      font-size: 1.15em;
+      font-size: 1.1em;
       font-weight: 600;
-      background-color: #00c853;
+      background: linear-gradient(90deg, #00c853, #00e676);
       color: white;
       border: none;
       border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
       text-decoration: none;
       animation: fadeIn 1.3s ease-in-out;
-      box-shadow: 0 4px 10px rgba(0,200,83,0.5);
+      box-shadow: 0 4px 15px rgba(0,200,83,0.5);
     }
 
     .boton:hover {
-      background-color: #00e676;
       transform: scale(1.05);
-      box-shadow: 0 6px 14px rgba(0,230,118,0.7);
+      box-shadow: 0 6px 18px rgba(0,230,118,0.7);
     }
 
     .footer {
@@ -88,7 +97,7 @@
 </head>
 <body>
 
-  <h1>Tu Perfil Saludable</h1>
+  <h1>🏋️ Tu Perfil Saludable</h1>
 
   <div class="info-box" id="datosUsuario">
     <!-- Datos cargados por JS -->
@@ -96,7 +105,7 @@
 
   <a href="entrenamiento.html" class="boton">📋 Plan de Entrenamiento</a>
   <a href="alimentacion.html" class="boton">🍽️ Plan de Alimentación</a>
-  <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación según Condición Médica</a>
+  <a href="alimentacionCondiciones.html" class="boton">⚕️ Alimentación Médica</a>
   <button class="boton" onclick="cerrarSesion()">🔒 Cerrar Sesión</button>
 
   <div class="footer">By: Juan Pablo Cruz</div>
@@ -118,7 +127,7 @@
         clasificacionIMC = "No calculado";
       } else if (imc < 18.5) {
         clasificacionIMC = "Bajo peso";
-      } else if (imc >= 18.5 && imc <= 24.9) {
+      } else if (imc <= 24.9) {
         clasificacionIMC = "Peso normal";
       } else {
         clasificacionIMC = "Sobrepeso";
@@ -146,7 +155,7 @@
         <p><strong>Peso:</strong> ${peso} kg</p>
         <p><strong>Altura:</strong> ${altura} m</p>
         <p><strong>Tipo de Cuerpo:</strong> ${tipoCuerpo}</p>
-        <p><em>${definicionTipoCuerpo}</em></p>
+        <em>${definicionTipoCuerpo}</em>
         <p><strong>IMC:</strong> ${imc.toFixed(2)} (${clasificacionIMC})</p>
         <p><strong>Deporte:</strong> ${deporte}</p>
         <p><strong>Disciplina:</strong> ${disciplina}</p>
