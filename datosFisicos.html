@@ -8,89 +8,55 @@
   <style>
     body {
       background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-      color: #f5f5f5;
+      color: #fff;
       font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      margin: 0;
+      max-width: 400px;
+      margin: 40px auto;
       padding: 20px;
-    }
-
-    .card {
-      background: rgba(18, 18, 18, 0.95);
-      border: 1px solid rgba(255, 215, 0, 0.1);
-      border-radius: 18px;
-      padding: 30px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.05);
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    .saludo {
-      font-size: 1.2em;
-      font-weight: 500;
-      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.1);
       text-align: center;
-      color: #e0e0e0;
     }
-
     h2 {
       margin-bottom: 25px;
       font-size: 1.8em;
-      text-align: center;
-      font-weight: 600;
       color: #ffd700;
+      animation: fadeIn 1s ease-in-out;
     }
-
     label {
       display: block;
-      margin-top: 18px;
-      font-weight: 500;
-      font-size: 0.95em;
-      color: #ccc;
+      text-align: left;
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 1em;
+      color: #e0e0e0;
     }
-
     input, select {
       width: 100%;
       padding: 12px;
-      margin-top: 6px;
+      margin-top: 8px;
       font-size: 1em;
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid rgba(255, 215, 0, 0.2);
       background-color: #141414;
-      color: #fff;
+      color: white;
       outline: none;
-      transition: all 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-
     input:focus, select:focus {
       border-color: #ffd700;
       box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
     }
-
     select option {
       background-color: #141414;
-      color: #fff;
+      color: white;
     }
-
-    #descripcionCuerpo {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: #aaa;
-      background-color: rgba(255, 255, 255, 0.03);
-      padding: 8px 10px;
-      border-radius: 8px;
-    }
-
     button {
       margin-top: 30px;
       width: 100%;
       padding: 14px;
-      font-size: 1.05em;
-      font-weight: 600;
+      font-size: 1.1em;
+      font-weight: bold;
       background: linear-gradient(90deg, #b8860b, #ffd700);
       border: none;
       border-radius: 30px;
@@ -98,57 +64,68 @@
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
     button:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4);
     }
-
+    .saludo {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #e0e0e0;
+    }
     .footer {
-      margin-top: 25px;
-      font-size: 0.85em;
-      color: #777;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
       text-align: center;
     }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(15px); }
+    #descripcionCuerpo {
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #ccc;
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 8px;
+      border-radius: 6px;
+      text-align: left;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <div class="saludo" id="saludo">Hola!</div>
+  <div class="saludo" id="saludo">Hola!</div>
 
-    <h2>Datos Físicos</h2>
+  <h2>Datos Físicos</h2>
 
-    <label for="edad">Edad (años)</label>
-    <input type="number" id="edad" min="1" max="120" placeholder="Ej: 30" required />
+  <label for="edad">Edad (años)</label>
+  <input type="number" id="edad" min="1" max="120" placeholder="Ej: 30" required />
 
-    <label for="peso">Peso (kg)</label>
-    <input type="number" id="peso" min="1" max="500" step="0.1" placeholder="Ej: 70.5" required />
+  <label for="peso">Peso (kg)</label>
+  <input type="number" id="peso" min="1" max="500" step="0.1" placeholder="Ej: 70.5" required />
 
-    <label for="altura">Altura (metros)</label>
-    <input type="number" id="altura" min="0.5" max="2.5" step="0.01" placeholder="Ej: 1.75" required />
+  <label for="altura">Altura (metros)</label>
+  <input type="number" id="altura" min="0.5" max="2.5" step="0.01" placeholder="Ej: 1.75" required />
 
-    <label for="tipoCuerpo">Tipo de cuerpo</label>
-    <select id="tipoCuerpo" required onchange="mostrarDescripcion()">
-      <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
-      <option value="Endomorfo">Endomorfo</option>
-      <option value="Mesomorfo">Mesomorfo</option>
-      <option value="Ectomorfo">Ectomorfo</option>
-    </select>
+  <label for="tipoCuerpo">Tipo de cuerpo</label>
+  <select id="tipoCuerpo" required onchange="mostrarDescripcion()">
+    <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
+    <option value="Endomorfo">Endomorfo</option>
+    <option value="Mesomorfo">Mesomorfo</option>
+    <option value="Ectomorfo">Ectomorfo</option>
+  </select>
 
-    <p id="descripcionCuerpo"></p>
+  <p id="descripcionCuerpo"></p>
 
-    <button onclick="guardarDatosFisicos()">Calcular y Continuar ➡</button>
+  <button onclick="guardarDatosFisicos()">Calcular y Continuar ➡</button>
 
-    <div class="footer">By: Juan Pablo Cruz</div>
-  </div>
+  <div class="footer">By: Juan Pablo Cruz</div>
 
   <script>
+    // Mostrar saludo personalizado con nombre y sexo
     window.onload = function() {
       const nombre = localStorage.getItem('nombre') || 'Usuario';
       const sexo = localStorage.getItem('sexo') || '';
@@ -159,6 +136,7 @@
 
       document.getElementById('saludo').textContent = `Hola ${titulo} ${nombre}, ingresa tus datos físicos:`;
 
+      // Cargar datos previos si existen
       if(localStorage.getItem('edad')) document.getElementById('edad').value = localStorage.getItem('edad');
       if(localStorage.getItem('peso')) document.getElementById('peso').value = localStorage.getItem('peso');
       if(localStorage.getItem('altura')) document.getElementById('altura').value = localStorage.getItem('altura');
@@ -168,6 +146,7 @@
       }
     }
 
+    // Mostrar descripción de tipo de cuerpo
     function mostrarDescripcion() {
       const tipo = document.getElementById("tipoCuerpo").value;
       const desc = {
@@ -178,6 +157,7 @@
       document.getElementById("descripcionCuerpo").textContent = desc[tipo] || "";
     }
 
+    // Guardar datos y calcular IMC
     function guardarDatosFisicos() {
       const edad = document.getElementById('edad').value;
       const peso = document.getElementById('peso').value;
