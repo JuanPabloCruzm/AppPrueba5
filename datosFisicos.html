@@ -71,6 +71,15 @@
       color: #aaa;
       text-align: center;
     }
+    #descripcionCuerpo {
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #ccc;
+      background-color: #1a1a1a;
+      padding: 8px;
+      border-radius: 6px;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
@@ -87,12 +96,14 @@
   <input type="number" id="altura" min="0.5" max="2.5" step="0.01" placeholder="Ej: 1.75" required />
 
   <label for="tipoCuerpo">Tipo de cuerpo</label>
-  <select id="tipoCuerpo" required>
+  <select id="tipoCuerpo" required onchange="mostrarDescripcion()">
     <option value="" disabled selected>Selecciona tu tipo de cuerpo</option>
     <option value="Endomorfo">Endomorfo</option>
     <option value="Mesomorfo">Mesomorfo</option>
     <option value="Ectomorfo">Ectomorfo</option>
   </select>
+
+  <p id="descripcionCuerpo"></p>
 
   <button onclick="guardarDatosFisicos()">Calcular y Continuar ➡</button>
 
@@ -115,9 +126,24 @@
       if(localStorage.getItem('edad')) document.getElementById('edad').value = localStorage.getItem('edad');
       if(localStorage.getItem('peso')) document.getElementById('peso').value = localStorage.getItem('peso');
       if(localStorage.getItem('altura')) document.getElementById('altura').value = localStorage.getItem('altura');
-      if(localStorage.getItem('tipoCuerpo')) document.getElementById('tipoCuerpo').value = localStorage.getItem('tipoCuerpo');
+      if(localStorage.getItem('tipoCuerpo')) {
+        document.getElementById('tipoCuerpo').value = localStorage.getItem('tipoCuerpo');
+        mostrarDescripcion();
+      }
     }
 
+    // Mostrar descripción de tipo de cuerpo
+    function mostrarDescripcion() {
+      const tipo = document.getElementById("tipoCuerpo").value;
+      const desc = {
+        "Endomorfo": "Cuerpo con tendencia a acumular grasa, complexión ancha y metabolismo más lento.",
+        "Mesomorfo": "Físico naturalmente atlético, gana músculo con facilidad y metabolismo equilibrado.",
+        "Ectomorfo": "Delgado, extremidades largas, dificultad para ganar masa muscular o grasa."
+      };
+      document.getElementById("descripcionCuerpo").textContent = desc[tipo] || "";
+    }
+
+    // Guardar datos y calcular IMC
     function guardarDatosFisicos() {
       const edad = document.getElementById('edad').value;
       const peso = document.getElementById('peso').value;
@@ -129,7 +155,6 @@
         return;
       }
 
-      // Calcular IMC
       const imc = peso / (altura * altura);
 
       localStorage.setItem('edad', edad);
@@ -138,7 +163,6 @@
       localStorage.setItem('tipoCuerpo', tipoCuerpo);
       localStorage.setItem('imc', imc.toFixed(2));
 
-      // Redirigir a la siguiente página (ejemplo deporte.html)
       window.location.href = 'deporte.html';
     }
   </script>
